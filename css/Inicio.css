@@ -1,0 +1,120 @@
+/* ==========================================
+   PAGE SPECIFIC: INICIO (INDEX)
+   ========================================== */
+
+.container-inicio {
+  background: #ffffff;
+  padding: 3rem 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--neutral-200);
+  position: relative;
+  overflow: hidden;
+}
+
+.container-inicio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-500), var(--primary-100));
+}
+
+.logo-icon {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  display: inline-block;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+}
+
+.container-inicio h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--neutral-900);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.container-inicio p.subtitle {
+  color: var(--neutral-600);
+  font-size: 1rem;
+  margin-bottom: 2.25rem;
+  line-height: 1.5;
+}
+
+.btn-card {
+  display: flex;
+  align-items: center;
+  background-color: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-card:hover {
+  border-color: var(--primary-500);
+  background-color: var(--primary-50);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-icon {
+  font-size: 1.75rem;
+  margin-right: 1.25rem;
+  color: var(--primary-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0.6rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-text {
+  text-align: left;
+}
+
+.btn-text h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 0.2rem;
+}
+
+.btn-text p {
+  font-size: 0.85rem;
+  color: var(--neutral-600);
+}
+
+.link-admin {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--neutral-600);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.link-admin:hover {
+  color: var(--primary-600);
+  background-color: var(--neutral-100);
+}

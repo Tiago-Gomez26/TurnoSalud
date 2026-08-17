@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TurnoSalud - Sistema Institucional de Gestión y Reserva de Turnos Médicos.">
+  <title>TurnoSalud | Sistema de Gestión Médica</title>
+  
+  <!-- Fonts & Core Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/Inicio.css">
+</head>
+<body>
+
+  <header>
+    🏥 TurnoSalud — Portal Institucional
+  </header>
+
+  <main>
+    <div class="container-inicio">
+      <div class="logo-icon">🩺</div>
+      <h1>Gestión de Turnos</h1>
+      <p class="subtitle">Plataforma centralizada para la reserva e itinerario de atención médica profesional.</p>
+
+      <a href="ListaMedicos.html" id="btnReservar" class="btn-card">
+        <div class="btn-icon">📅</div>
+        <div class="btn-text">
+          <h3>Solicitar Turno Médico</h3>
+          <p>Consulte disponibilidad y agende su atención médica.</p>
+        </div>
+      </a>
+
+      <a href="MisTurnos.html" class="btn-card">
+        <div class="btn-icon">📋</div>
+        <div class="btn-text">
+          <h3>Consultar Mis Turnos</h3>
+          <p>Revise sus citas médicas programadas en el sistema.</p>
+        </div>
+      </a>
+
+      <a href="Login.html" class="link-admin">
+        🔒 Acceso Restringido / Personal Médico
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 TurnoSalud Inc. Todos los derechos reservados. Red de Servicios Médicos Institucionales.
+  </footer>
+
+  <!-- Scripts Core & Controller -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/Inicio.js"></script>
+</body>
+</html>

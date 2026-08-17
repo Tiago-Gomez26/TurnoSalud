@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formulario Institucional para Reserva y Agendamiento de Citas.">
+  <title>Reserva de Turno | TurnoSalud</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/FormularioTurno.css">
+</head>
+<body>
+
+  <header>
+    🏥 TurnoSalud — Confirmación de Cita
+  </header>
+
+  <main>
+    <div class="card-form">
+      <h2>Agendar Cita Médica</h2>
+      <p class="medico-titulo" id="nombreMedico">Cargando datos del profesional...</p>
+
+      <form id="formReserva">
+        <div class="form-group">
+          <label for="nombre">Nombre del Paciente *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido">Apellido del Paciente *</label>
+          <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido" required>
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono de Contacto *</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej: +54 9 11 1234 5678" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fecha">Fecha de Cita *</label>
+          <input type="date" id="fecha" name="fecha" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hora">Horario Disponible *</label>
+          <select id="hora" name="hora" required>
+            <option value="">Seleccione primero una fecha...</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Confirmar y Agendar Turno</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 TurnoSalud Inc. Sistema Único de Reservas Sanitarias.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/FormularioTurno.js"></script>
+</body>
+</html>

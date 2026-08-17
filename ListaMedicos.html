@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Selección de Profesionales Sanitarios y Especialidades Médicas.">
+  <title>Staff Médico | TurnoSalud</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/ListaMedicos.css">
+</head>
+<body>
+
+  <header>
+    🏥 TurnoSalud — Cartilla Médica
+  </header>
+
+  <main>
+    <div class="contenedor-lista">
+      <h2>Seleccione el Profesional Médico</h2>
+
+      <div id="contenedorMedicos">
+        <!-- Tarjetas por defecto cargadas vía HTML o renderizadas dinámicamente -->
+        <div class="medico-card">
+          <div class="medico-info">
+            <h3>Dr. Carlos Benítez</h3>
+            <p>🩺 Cardiología Clínica</p>
+          </div>
+          <button class="btn-seleccionar" onclick="seleccionarMedico('1', 'Dr. Carlos Benítez')">
+            Elegir
+          </button>
+        </div>
+
+        <div class="medico-card">
+          <div class="medico-info">
+            <h3>Dra. Elena Rostova</h3>
+            <p>🩺 Pediatría & Neonatología</p>
+          </div>
+          <button class="btn-seleccionar" onclick="seleccionarMedico('2', 'Dra. Elena Rostova')">
+            Elegir
+          </button>
+        </div>
+
+        <div class="medico-card">
+          <div class="medico-info">
+            <h3>Dr. Marcelo Fernández</h3>
+            <p>🩺 Traumatología & Ortopedia</p>
+          </div>
+          <button class="btn-seleccionar" onclick="seleccionarMedico('3', 'Dr. Marcelo Fernández')">
+            Elegir
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 TurnoSalud Inc. Dirección Médica General.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/ListaMedicos.js"></script>
+</body>
+</html>

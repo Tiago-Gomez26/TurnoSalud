@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard General de Administración y Métricas Institucionales.">
+  <title>Panel Institucional | TurnoSalud</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/ListaDeAdministracion.css">
+</head>
+<body>
+
+  <header>
+    🏥 TurnoSalud — Control Central Institucional
+  </header>
+
+  <main>
+    <div class="contenedor-admin">
+      <div class="admin-header">
+        <h2>Panel Global de Control</h2>
+        <p>Visión general de la infraestructura de atención y métricas del sistema.</p>
+      </div>
+
+      <div class="admin-grid">
+        <div class="admin-card">
+          <h3>📊 Reservas Totales</h3>
+          <p>Métricas consolidadas de turnos emitidos a la fecha.</p>
+          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-600); margin-bottom: 1rem;" id="totalTurnos">0</div>
+          <a href="ListaDeTurnos.html" class="btn-admin-action">Ver Agenda General</a>
+        </div>
+
+        <div class="admin-card">
+          <h3>👨‍⚕️ Staff Profesional</h3>
+          <p>Administración del cuerpo de médicos activos en cartilla.</p>
+          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-600); margin-bottom: 1rem;" id="totalMedicos">0</div>
+          <a href="ListaMedicos.html" class="btn-admin-action">Gestionar Médicos</a>
+        </div>
+
+        <div class="admin-card">
+          <h3>⚙️ Configuración del Sistema</h3>
+          <p>Ajuste de parámetros, horarios de atención y base de datos.</p>
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--neutral-800); margin-bottom: 1.5rem;">Estado: Óptimo</div>
+          <a href="#" class="btn-admin-action" style="background-color: var(--neutral-800);">Ajustes de Sistema</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 TurnoSalud Inc. Dirección de Tecnologías de la Información.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/ListaDeAdministracion.js"></script>
+</body>
+</html>

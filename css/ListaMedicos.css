@@ -1,0 +1,77 @@
+/* ==========================================
+   PAGE SPECIFIC: LISTA DE MÉDICOS
+   ========================================== */
+
+.contenedor-lista {
+  max-width: 720px;
+  width: 100%;
+}
+
+.contenedor-lista h2 {
+  text-align: center;
+  color: var(--neutral-900);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.015em;
+}
+
+.medico-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--neutral-200);
+  transition: var(--transition-normal);
+  position: relative;
+}
+
+.medico-card:hover {
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.medico-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 0.3rem;
+  text-align: left;
+}
+
+.medico-info p {
+  font-size: 0.95rem;
+  color: var(--primary-600);
+  font-weight: 600;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-seleccionar {
+  background-color: var(--primary-500);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-seleccionar:hover {
+  background-color: var(--primary-600);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-seleccionar:active {
+  transform: scale(0.98);
+}

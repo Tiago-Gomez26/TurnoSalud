@@ -1,0 +1,72 @@
+/* ==========================================
+   PAGE SPECIFIC: LISTA DE TURNOS (MÉDICO)
+   ========================================== */
+
+.contenedor-panel-turnos {
+  max-width: 900px;
+  width: 100%;
+}
+
+.header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--neutral-200);
+  padding-bottom: 1rem;
+}
+
+.header-panel h2 {
+  font-size: 1.6rem;
+  color: var(--neutral-900);
+  font-weight: 700;
+}
+
+.tabla-turnos-container {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--neutral-200);
+  overflow: hidden;
+}
+
+.tabla-turnos {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabla-turnos th {
+  background-color: var(--neutral-800);
+  color: #ffffff;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tabla-turnos td {
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--neutral-200);
+  color: var(--neutral-800);
+  font-size: 0.95rem;
+}
+
+.tabla-turnos tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-turnos tr:hover {
+  background-color: var(--neutral-50);
+}
+
+.badge-estado {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background-color: var(--primary-50);
+  color: var(--primary-700);
+}

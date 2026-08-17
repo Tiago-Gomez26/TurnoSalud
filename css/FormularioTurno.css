@@ -1,0 +1,93 @@
+/* ==========================================
+   PAGE SPECIFIC: FORMULARIO DE TURNO
+   ========================================== */
+
+.card-form {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 500px;
+  width: 100%;
+  border: 1px solid var(--neutral-200);
+}
+
+.card-form h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+
+p.medico-titulo {
+  text-align: center;
+  color: var(--primary-600);
+  font-weight: 600;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  background-color: var(--primary-50);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--neutral-800);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.form-group input, 
+.form-group select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.975rem;
+  color: var(--neutral-900);
+  background-color: var(--neutral-50);
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+  border-color: var(--primary-500);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
+}
+
+.btn-submit {
+  width: 100%;
+  background-color: var(--primary-500);
+  color: #ffffff;
+  border: none;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-submit:hover {
+  background-color: var(--primary-600);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-submit:active {
+  transform: translateY(1px);
+}
