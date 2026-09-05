@@ -6,56 +6,232 @@
   <meta name="description" content="Dashboard General de Administración y Métricas Institucionales.">
   <title>Panel Institucional | TurnoSalud</title>
   
+  <!-- Fuentes e Iconos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Hojas de Estilos separadas -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaDeAdministracion.css">
 </head>
-<body>
+<body class="page-layout">
 
+  <!-- Header Superior Institucional con Menú Desplegable -->
   <header>
-    🏥 TurnoSalud — Control Central Institucional
+    <h1 class="header-title">🏥 TurnoSalud — Control Central Institucional</h1>
+
+    <div class="header-dropdown">
+      <button class="header-dropdown-btn" type="button" aria-label="Abrir menú de navegación">
+        Navegación <span class="header-dropdown-icon">❯</span>
+      </button>
+      <div class="header-menu-content">
+        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+      </div>
+    </div>
   </header>
 
-  <main>
+  <!-- Área Principal de Contenido -->
+  <main class="main-content">
     <div class="contenedor-admin">
       <div class="admin-header">
         <h2>Panel Global de Control</h2>
         <p>Visión general de la infraestructura de atención y métricas del sistema.</p>
       </div>
 
+      <!-- TARJETAS Y MÉTRICAS PRINCIPALES -->
       <div class="admin-grid">
+        <!-- Card 1: Reservas / Agenda -->
         <div class="admin-card">
           <h3>📊 Reservas Totales</h3>
           <p>Métricas consolidadas de turnos emitidos a la fecha.</p>
-          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-600); margin-bottom: 1rem;" id="totalTurnos">0</div>
-          <a href="ListaDeTurnos.html" class="btn-admin-action">Ver Agenda General</a>
+          <div class="metric-number" id="totalTurnos">0</div>
+          <button id="btnVerAgenda" class="btn-admin-action full-width">Ver Agenda General</button>
         </div>
 
+        <!-- Card 2: Staff Médico -->
         <div class="admin-card">
           <h3>👨‍⚕️ Staff Profesional</h3>
           <p>Administración del cuerpo de médicos activos en cartilla.</p>
-          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-600); margin-bottom: 1rem;" id="totalMedicos">0</div>
-          <a href="ListaMedicos.html" class="btn-admin-action">Gestionar Médicos</a>
+          <div class="metric-number" id="totalMedicos">0</div>
+          <button id="btnGestionarMedicos" class="btn-admin-action full-width">Gestionar Médicos</button>
         </div>
 
+        <!-- Card 3: Ajustes / Mantenimiento -->
         <div class="admin-card">
           <h3>⚙️ Configuración del Sistema</h3>
           <p>Ajuste de parámetros, horarios de atención y base de datos.</p>
-          <div style="font-size: 1.5rem; font-weight: 700; color: var(--neutral-800); margin-bottom: 1.5rem;">Estado: Óptimo</div>
-          <a href="#" class="btn-admin-action" style="background-color: var(--neutral-800);">Ajustes de Sistema</a>
+          <div class="metric-status">Estado: Óptimo</div>
+          <button id="btnAjustesSistema" class="btn-admin-action btn-dark full-width">Ajustes de Sistema</button>
         </div>
       </div>
+
+      <!-- =================================================================== -->
+      <!-- PANTALLA 1: AGENDA GENERAL ORDENADA POR DÍA Y HORA                  -->
+      <!-- =================================================================== -->
+      <section id="secAgendaGeneral" class="admin-section-card display-none">
+        <h2 class="section-title">Agenda General de Turnos</h2>
+        <div class="table-responsive">
+          <table class="tabla-custom">
+            <thead>
+              <tr>
+                <th>Fecha y Hora</th>
+                <th>Paciente</th>
+                <th>Teléfono</th>
+                <th>Médico Asignado</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTablaAgendaAdmin">
+              <!-- Carga dinámica vía JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- PANTALLA 2: GESTIÓN DE MÉDICOS (ALTA COMPLETA Y BAJA MEJORADA)      -->
+      <!-- =================================================================== -->
+      <section id="secGestionMedicos" class="admin-section-card display-none">
+        <h2 class="section-title">Gestión del Cuerpo Médico</h2>
+        
+        <!-- Formulario completo de Alta de Médico con Credenciales y Horarios -->
+        <form id="formAgregarMedico" class="admin-form-box">
+          <h4 class="form-title">➕ Registrar Nuevo Profesional y Crear Cuenta</h4>
+          
+          <div class="form-grid-medico">
+            <div class="form-group-admin">
+              <label for="nuevoNombreMedico">Nombre Completo</label>
+              <input type="text" id="nuevoNombreMedico" placeholder="Ej: Dr. Carlos Pérez" required>
+            </div>
+            
+            <div class="form-group-admin">
+              <label for="nuevaEspecialidadMedico">Especialidad</label>
+              <input type="text" id="nuevaEspecialidadMedico" placeholder="Ej: Pediatría / Cardiología" required>
+            </div>
+
+            <div class="form-group-admin">
+              <label for="nuevoHorarioMedico">Horarios de Atención</label>
+              <input type="text" id="nuevoHorarioMedico" placeholder="Ej: Lun a Vie 08:00 - 14:00 hs" required>
+            </div>
+
+            <div class="form-group-admin">
+              <label for="nuevoEmailMedico">Correo Electrónico</label>
+              <input type="email" id="nuevoEmailMedico" placeholder="medico@turnosalud.com" required>
+            </div>
+
+            <div class="form-group-admin">
+              <label for="nuevaPasswordMedico">Contraseña inicial</label>
+              <input type="password" id="nuevaPasswordMedico" placeholder="Mínimo 6 caracteres" minlength="6" required>
+            </div>
+          </div>
+
+          <button type="submit" id="btnAgregarMedico" class="btn-admin-action btn-submit">
+            👨‍⚕️ Registrar y Crear Cuenta de Médico
+          </button>
+        </form>
+
+        <!-- Tabla Estilizada de Médicos -->
+        <h4 class="subtable-title">Cartilla de Profesionales Activos</h4>
+        <div class="table-responsive">
+          <table class="tabla-custom">
+            <thead>
+              <tr>
+                <th>Nombre y Apellido</th>
+                <th>Especialidad</th>
+                <th>Horarios</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTablaMedicosAdmin">
+              <!-- Carga dinámica vía JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- PANTALLA 3: AJUSTES Y MANTENIMIENTO DE BASE DE DATOS               -->
+      <!-- =================================================================== -->
+      <section id="secAjustesSistema" class="admin-section-card display-none">
+        <h2 class="section-title">Mantenimiento de Base de Datos</h2>
+        <p class="section-subtitle">Herramientas operativas de limpieza y depuración de registros en la base de datos institucional.</p>
+        
+        <div class="danger-zone-box">
+          <h4 class="danger-title">⚠️ Depuración de Agenda Antigua</h4>
+          <p class="danger-text">
+            Esta acción eliminará de forma irreversible todos los turnos cuyo registro corresponda a fechas anteriores al 1° del mes actual.
+          </p>
+          <button id="btnDepurarTurnos" class="btn-delete-action btn-large">
+            🗑️ Eliminar Turnos del Mes Pasado
+          </button>
+        </div>
+      </section>
+
     </div>
   </main>
 
-  <footer>
-    &copy; 2026 TurnoSalud Inc. Dirección de Tecnologías de la Información.
+  <!-- =================================================================== -->
+  <!-- MODALES PERSONALIZADOS DE ELIMINACIÓN DE PROFESIONAL                 -->
+  <!-- =================================================================== -->
+
+  <!-- Modal 1: Confirmación de Eliminación -->
+  <div id="confirmDeleteModal" class="custom-alert-overlay">
+    <div class="custom-alert-card">
+      <div class="custom-alert-icon warning-danger">⚠️</div>
+      <h3 class="custom-alert-title">Eliminar Profesional</h3>
+      <p id="confirmDeleteMessage" class="custom-alert-message">
+        ¿Está seguro de que desea eliminar permanentemente al profesional?
+      </p>
+      <div class="modal-actions-row">
+        <button id="btnDeleteDismiss" class="custom-alert-btn secondary" type="button">Cancelar</button>
+        <button id="btnDeleteConfirm" class="custom-alert-btn danger" type="button">Sí, eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Éxito de Eliminación -->
+  <div id="successDeleteModal" class="custom-alert-overlay">
+    <div class="custom-alert-card">
+      <div class="custom-alert-icon">✓</div>
+      <h3 class="custom-alert-title">¡Eliminado con Éxito!</h3>
+      <p id="successDeleteMessage" class="custom-alert-message">
+        El profesional y sus registros asociados han sido eliminados correctamente.
+      </p>
+      <div class="modal-actions-row">
+        <button id="btnDeleteSuccessOk" class="custom-alert-btn" type="button">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Componente: Modal / Ventana Emergente de Ayuda -->
+  <div id="modalAyuda" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalAyuda" aria-modal="true">
+    <div class="modal-contenido">
+      <h3 id="tituloModalAyuda">¿Cómo reservar tu turno?</h3>
+      <ol>
+        <li><strong>Elige tu médico:</strong> Selecciona el profesional o especialidad de la lista.</li>
+        <li><strong>Selecciona la fecha y hora:</strong> Elige el día disponible que mejor te convenga.</li>
+        <li><strong>Ingresa tus datos:</strong> Completa tu nombre, apellido y teléfono de contacto.</li>
+        <li><strong>Confirma la reserva:</strong> Revisa la información y presiona "Confirmar". ¡Listo!</li>
+      </ol>
+      <button type="button" onclick="cerrarAyudaReserva()" class="btn-cerrar-modal">Entendido</button>
+    </div>
+  </div>
+
+  <!-- Pie de Página Institucional Fijo -->
+  <footer class="main-footer-fixed">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Sistema Único de Reservas.</p>
+    </div>
   </footer>
 
+  <!-- DEPENDENCIAS Y CONTROLADORES -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/ListaDeAdministracion.js"></script>
+
 </body>
 </html>

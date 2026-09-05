@@ -3,28 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gestión e itinerario de turnos agendados para profesionales médicos.">
+  <meta name="description" content="Gestión, itinerario y lista de turnos médicos agendados - TurnoSalud">
   <title>Planilla de Turnos | TurnoSalud</title>
   
+  <!-- Tipografía Oficial Google Fonts (Inter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Hojas de Estilos Globales y Locales -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaDeTurnos.css">
 </head>
-<body>
+<body class="page-layout">
 
-  <header>
-    🏥 TurnoSalud — Agenda Médica Operativa
+  <!-- Header Superior Institucional -->
+  <header class="header-institucional">
+    <h1 class="header-title">🏥 TurnoSalud — Agenda Médica Operativa</h1>
   </header>
 
-  <main>
-    <div class="contenedor-panel-turnos">
+  <!-- Contenido Principal: Agenda e Itinerario de Turnos -->
+  <main class="main-content">
+    <div class="contenedor-lista contenedor-panel-turnos">
+      
       <div class="header-panel">
-        <h2>Itinerario de Pacientes Agendados</h2>
-        <a href="ListaDeAdministracion.html" style="font-weight: 600; color: var(--primary-600); text-decoration: none;">⚙️ Panel General</a>
+        <h2 class="titulo-seccion">Itinerario de Pacientes Agendados</h2>
       </div>
 
+      <!-- Vista Grid/Tarjetas para Vista Móvil o Alternativa -->
+      <div id="contenedorTurnos" class="grid-turnos"></div>
+
+      <!-- Tabla Detallada de Turnos Médicos -->
       <div class="tabla-turnos-container">
         <table class="tabla-turnos">
           <thead>
@@ -43,15 +52,56 @@
           </tbody>
         </table>
       </div>
+
     </div>
   </main>
 
-  <footer>
-    &copy; 2026 TurnoSalud Inc. Panel Exclusivo para Personal Registrado.
+  <!-- Botón Flotante Circular de Palmera para Registrar Vacaciones -->
+  <button type="button" class="btn-vacaciones-flotante" onclick="abrirModalVacaciones()" title="Registrar Vacaciones / Licencias" aria-label="Registrar Vacaciones">
+    🌴
+  </button>
+
+  <!-- Componente Modal: Registrar Vacaciones -->
+  <div id="modalVacaciones" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalVacaciones" aria-modal="true">
+    <div class="modal-contenido modal-vacaciones-box">
+      <h3 id="tituloModalVacaciones">🌴 Registrar Período de Vacaciones</h3>
+      <p class="modal-desc">Seleccione el rango de fechas en las que no estará disponible para atender turnos.</p>
+
+      <form id="formVacaciones" autocomplete="off">
+        <div class="form-group-vac">
+          <label for="vacInicio">Fecha de Inicio *</label>
+          <input type="date" id="vacInicio" name="vacInicio" required>
+        </div>
+
+        <div class="form-group-vac">
+          <label for="vacFin">Fecha de Fin *</label>
+          <input type="date" id="vacFin" name="vacFin" required>
+        </div>
+
+        <div class="form-group-vac">
+          <label for="vacMotivo">Motivo (Opcional)</label>
+          <input type="text" id="vacMotivo" name="vacMotivo" placeholder="Ej: Vacaciones anuales, Congreso, etc.">
+        </div>
+
+        <div class="modal-acciones">
+          <button type="button" onclick="cerrarModalVacaciones()" class="btn-cancelar">Cancelar</button>
+          <button type="submit" class="btn-submit-vac">Guardar Vacaciones</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Pie de Página Institucional -->
+  <footer class="footer-institucional">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Panel Exclusivo para Personal Registrado.</p>
+    </div>
   </footer>
 
+  <!-- DEPENDENCIAS Y CONTROLADORES -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/ListaDeTurnos.js"></script>
+
 </body>
 </html>

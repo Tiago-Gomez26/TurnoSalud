@@ -6,24 +6,42 @@
   <meta name="description" content="Formulario Institucional para Reserva y Agendamiento de Citas.">
   <title>Reserva de Turno | TurnoSalud</title>
   
+  <!-- Preconexión e inclusión de Tipografías desde Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Hojas de Estilos Globales y Específicas del Formulario -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/FormularioTurno.css">
 </head>
-<body>
+<body class="page-layout">
 
+  <!-- Cabecera Institucional Superior con Menú Desplegable Integrado -->
   <header>
-    🏥 TurnoSalud — Confirmación de Cita
+    <h1 class="header-title">Confirmación de Cita</h1>
+
+    <div class="header-dropdown">
+      <button class="header-dropdown-btn" type="button" aria-label="Abrir menú de navegación">
+        Navegación <span class="header-dropdown-icon">❯</span>
+      </button>
+      <div class="header-menu-content">
+        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+      </div>
+    </div>
   </header>
 
-  <main>
+  <!-- Área Principal de la Aplicación -->
+  <main class="main-content">
     <div class="card-form">
-      <h2>Agendar Cita Médica</h2>
+      <h2 class="titulo-formulario">Agendar Cita Médica</h2>
       <p class="medico-titulo" id="nombreMedico">Cargando datos del profesional...</p>
 
-      <form id="formReserva">
+      <!-- Formulario interactivo de reserva de turnos -->
+      <form id="formReserva" autocomplete="off">
         <div class="form-group">
           <label for="nombre">Nombre del Paciente *</label>
           <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
@@ -56,12 +74,48 @@
     </div>
   </main>
 
-  <footer>
-    &copy; 2026 TurnoSalud Inc. Sistema Único de Reservas Sanitarias.
+  <!-- Componente: Modal Customizado de Confirmación de Reserva -->
+  <div class="custom-alert-overlay" id="customAlert" role="dialog" aria-labelledby="tituloAlertTurno" aria-modal="true">
+    <div class="custom-alert-card">
+      <div class="custom-alert-icon">✓</div>
+      <h3 class="custom-alert-title" id="tituloAlertTurno">¡Turno Agendado!</h3>
+      <p class="custom-alert-message">Tu turno médico se ha registrado con éxito.</p>
+      <button class="custom-alert-btn" id="closeAlertBtn" type="button">Aceptar</button>
+    </div>
+  </div>
+
+  <!-- Componente: Modal / Ventana Emergente de Ayuda -->
+  <div id="modalAyuda" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalAyuda" aria-modal="true">
+    <div class="modal-contenido">
+      <h3 id="tituloModalAyuda">¿Cómo reservar tu turno?</h3>
+      <ol>
+        <li><strong>Elige tu médico:</strong> Selecciona el profesional o especialidad de la lista.</li>
+        <li><strong>Selecciona la fecha y hora:</strong> Elige el día disponible que mejor te convenga.</li>
+        <li><strong>Ingresa tus datos:</strong> Completa tu nombre, apellido y teléfono de contacto.</li>
+        <li><strong>Confirma la reserva:</strong> Revisa la información y presiona "Confirmar". ¡Listo!</li>
+      </ol>
+      <button type="button" onclick="cerrarAyudaReserva()" class="btn-cerrar-modal">Entendido</button>
+    </div>
+  </div>
+
+  <!-- Pie de Página Institucional Limpio -->
+  <footer class="main-footer-fixed">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Sistema Único de Reservas.</p>
+    </div>
   </footer>
 
+  <!-- ========================================== -->
+  <!-- CARGA DE SCRIPTS EXTERNOS Y DE NEGOCIO     -->
+  <!-- ========================================== -->
+  <!-- 1. Cliente Supabase desde CDN oficial -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- 2. Configuración de cliente y credenciales de la base de datos -->
   <script src="js/supabase-config.js"></script>
+
+  <!-- 3. Lógica específica del formulario de reserva y validación de horarios -->
   <script src="js/FormularioTurno.js"></script>
+
 </body>
 </html>

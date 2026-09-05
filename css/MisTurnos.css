@@ -1,75 +1,480 @@
-/* ==========================================
-   PAGE SPECIFIC: MIS TURNOS
-   ========================================== */
+
+/* ==========================================================================
+   1. MODALES Y ALERTAS CUSTOMIZADAS (CANCELACIÓN Y ÉXITO)
+   ========================================================================== */
+
+/* Overlay Oscuro / Fondo del Modal */
+.custom-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+  padding: 1.25rem;
+}
+
+.custom-alert-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tarjeta / Contenedor del Modal */
+.custom-alert-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.75rem 1.5rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(15px) scale(0.95);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-alert-overlay.active .custom-alert-card {
+  transform: translateY(0) scale(1);
+}
+
+/* Iconos de Alerta */
+.custom-alert-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #dcfce7;
+  color: #16a34a;
+  font-size: 1.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+
+/* Modificadores de Iconos para Alertas */
+.custom-alert-icon.warning {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+/* Títulos y Textos del Modal */
+.custom-alert-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--neutral-900, #0f172a);
+  margin-bottom: 0.5rem;
+}
+
+.custom-alert-message {
+  font-size: 0.925rem;
+  color: var(--neutral-600, #475569);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+/* Fila de Acciones en Modales */
+.modal-actions-row {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Estilos Generales de Botones de Alerta */
+.custom-alert-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm, 6px);
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--primary-600, #007a78);
+  color: #ffffff;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-alert-btn:hover {
+  background-color: var(--primary-700, #005f5d);
+}
+
+.custom-alert-btn:active {
+  transform: scale(0.98);
+}
+
+/* Estilos de Botones Secundarios y de Acción Crítica */
+.custom-alert-btn.secondary {
+  background-color: var(--neutral-200, #e5e7eb);
+  color: var(--neutral-800, #1f2937);
+}
+
+.custom-alert-btn.secondary:hover {
+  background-color: var(--neutral-300, #d1d5db);
+}
+
+.custom-alert-btn.danger {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.custom-alert-btn.danger:hover {
+  background-color: #b91c1c;
+}
+
+
+/* ==========================================================================
+   2. ESTRUCTURA Y TARJETAS DE MIS TURNOS
+   ========================================================================== */
 
 .contenedor-mis-turnos {
   max-width: 680px;
   width: 100%;
+  margin: 0 auto;
 }
 
 .contenedor-mis-turnos h2 {
   text-align: center;
-  color: var(--neutral-900);
+  color: var(--neutral-900, #0f172a);
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1.75rem;
 }
 
+.card-turno,
 .turno-card {
   background: #ffffff;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-md, 8px);
   padding: 1.5rem 1.75rem;
   margin-bottom: 1.25rem;
-  box-shadow: var(--shadow-md);
-  border-left: 6px solid var(--primary-500);
-  border-top: 1px solid var(--neutral-200);
-  border-right: 1px solid var(--neutral-200);
-  border-bottom: 1px solid var(--neutral-200);
+  box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.08));
+  border-left: 6px solid var(--primary-500, #007a78); /* Verde característico */
+  border-top: 1px solid var(--neutral-200, #e2e8f0);
+  border-right: 1px solid var(--neutral-200, #e2e8f0);
+  border-bottom: 1px solid var(--neutral-200, #e2e8f0);
   text-align: left;
   width: 100%;
-  transition: var(--transition-fast);
+  transition: var(--transition-fast, all 0.2s ease-in-out);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  position: relative;
 }
 
+.card-turno:hover,
 .turno-card:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.12));
 }
 
+.card-turno-contenido {
+  flex: 1;
+}
+
+.card-turno h3,
 .turno-card h3 {
   font-size: 1.2rem;
-  color: var(--neutral-900);
+  color: var(--neutral-900, #0f172a);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
+.card-turno p,
 .turno-card p {
   font-size: 0.95rem;
-  color: var(--neutral-600);
+  color: var(--neutral-600, #475569);
   margin-bottom: 0.35rem;
 }
 
+.card-turno .fecha-hora,
 .turno-card .fecha-hora {
   font-weight: 700;
-  color: var(--primary-600);
+  color: var(--primary-600, #007a78);
   font-size: 1.05rem;
   margin-bottom: 0.75rem;
   display: block;
 }
+
+
+/* ==========================================================================
+   3. MENÚ DESPLEGABLE CON BOTÓN DE TRES PUNTOS (...)
+   ========================================================================== */
+
+.menu-tres-puntos-contenedor {
+  position: relative;
+  display: inline-block;
+}
+
+/* Botón Circular con Icono '...' */
+.btn-tres-puntos {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #64748b;
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1;
+}
+
+.btn-tres-puntos:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Menú Desplegable (Dropdown) */
+.dropdown-menu-turno {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  background-color: #ffffff;
+  min-width: 170px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 9999;
+}
+
+/* Estado Activo del Menú Desplegable (Forzado para mostrarse) */
+.menu-tres-puntos-contenedor.activo .dropdown-menu-turno {
+  display: flex !important;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Opciones / Ítems del Menú Desplegable */
+.dropdown-item {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Estilos de Cada Acción dentro del Menú Desplegable */
+.dropdown-item.btn-detalle {
+  color: #0284c7;
+}
+
+.dropdown-item.btn-detalle:hover {
+  background-color: #f0f9ff;
+}
+
+.dropdown-item.btn-reprogramar {
+  color: #d97706;
+}
+
+.dropdown-item.btn-reprogramar:hover {
+  background-color: #fffbeb;
+}
+
+.dropdown-item.btn-cancelar {
+  color: #dc2626;
+}
+
+.dropdown-item.btn-cancelar:hover {
+  background-color: #fef2f2;
+}
+
+
+/* ==========================================================================
+   4. BANDEROLA Y BOTONES CUADRADOS DE ACCIONES (VISTA ALTERNATIVA EN LÍNEA)
+   ========================================================================== */
+
+/* Contenedor de acciones (Botones Cuadrados) */
+.acciones-turno {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Estilo de los Botones Cuadrados */
+.btn-cuadrado {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  gap: 6px;
+  padding: 4px;
+  text-align: center;
+}
+
+/* Efectos Hover Generales */
+.btn-cuadrado:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 1. Ver Detalle */
+.btn-cuadrado.btn-detalle {
+  color: #0284c7;
+  border-color: #bae6fd;
+  background-color: #f0f9ff;
+}
+
+.btn-cuadrado.btn-detalle:hover {
+  background-color: #0284c7;
+  color: #ffffff;
+}
+
+/* 2. Reprogramar */
+.btn-cuadrado.btn-reprogramar {
+  color: #d97706;
+  border-color: #fef3c7;
+  background-color: #fffbeb;
+}
+
+.btn-cuadrado.btn-reprogramar:hover {
+  background-color: #d97706;
+  color: #ffffff;
+}
+
+/* 3. Cancelar Turno */
+.btn-cuadrado.btn-cancelar {
+  color: #dc2626;
+  border-color: #fecaca;
+  background-color: #fef2f2;
+}
+
+.btn-cuadrado.btn-cancelar:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+
+/* ==========================================================================
+   5. BOTONES SECUNDARIOS DE NAVEGACIÓN
+   ========================================================================== */
 
 .btn-volver {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin: 1.5rem auto 0;
-  color: var(--primary-600);
+  color: var(--primary-600, #007a78);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
   padding: 0.6rem 1.2rem;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
+  border-radius: var(--radius-sm, 6px);
+  transition: var(--transition-fast, all 0.2s ease);
 }
 
 .btn-volver:hover {
-  background-color: var(--primary-50);
-  color: var(--primary-700);
+  background-color: var(--primary-50, #f0fdf4);
+  color: var(--primary-700, #005f5d);
+}
+
+
+/* ==========================================================================
+   6. ADAPTACIÓN RESPONSIVA (PANTALLAS MÓVILES)
+   ========================================================================== */
+
+@media (max-width: 600px) {
+  .card-turno,
+  .turno-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu-tres-puntos-contenedor {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  .acciones-turno {
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .btn-cuadrado {
+    flex: 1;
+    height: 70px;
+  }
+}
+
+
+/* ==========================================================================
+   7. UTILIDADES Y AJUSTES GLOBALES
+   ========================================================================== */
+
+/* Accesibilidad: Oculta elementos visualmente pero los mantiene para lectores de pantalla */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Desplazamiento suave para navegación por anclas */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Clases de utilidad para control de visibilidad rápida */
+.u-hidden {
+  display: none !important;
+}
+
+.u-text-center {
+  text-align: center !important;
+}
+
+/* Optimización de interacción táctil para dispositivos móviles */
+button, 
+a, 
+input[type="submit"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevención de desbordamiento horizontal en contenedores de texto */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
 }

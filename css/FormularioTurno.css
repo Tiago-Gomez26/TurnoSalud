@@ -91,3 +91,141 @@ p.medico-titulo {
 .btn-submit:active {
   transform: translateY(1px);
 }
+
+/* ==========================================
+   COMPONENT: MODAL DE CONFIRMACIÓN
+   ========================================== */
+
+.custom-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.custom-alert-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.custom-alert-card {
+  background-color: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.75rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.custom-alert-overlay.active .custom-alert-card {
+  transform: translateY(0);
+}
+
+.custom-alert-icon {
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-50);
+  color: var(--primary-600);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem auto;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.custom-alert-title {
+  color: var(--neutral-900);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.custom-alert-message {
+  color: var(--neutral-800);
+  font-size: 0.975rem;
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+}
+
+.custom-alert-btn {
+  width: 100%;
+  background-color: var(--primary-500);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+
+.custom-alert-btn:hover {
+  background-color: var(--primary-600);
+  box-shadow: var(--shadow-lg);
+}
+
+.custom-alert-btn:active {
+  transform: translateY(1px);
+}
+
+/* ==========================================================================
+   UTILIDADES Y AJUSTES GLOBALES
+   ========================================================================== */
+
+/* Accesibilidad: Oculta elementos visualmente pero los mantiene para lectores de pantalla */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Desplazamiento suave para navegación por anclas */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Clases de utilidad para control de visibilidad rápida */
+.u-hidden {
+  display: none !important;
+}
+
+.u-text-center {
+  text-align: center !important;
+}
+
+/* Optimización de interacción táctil para dispositivos móviles */
+button, 
+a, 
+input[type="submit"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevención de desbordamiento horizontal en contenedores de texto */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}

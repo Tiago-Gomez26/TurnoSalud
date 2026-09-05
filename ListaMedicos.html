@@ -3,66 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Selección de Profesionales Sanitarios y Especialidades Médicas.">
-  <title>Staff Médico | TurnoSalud</title>
+  <meta name="description" content="Cartilla Médica y Selección de Profesionales - TurnoSalud">
+  <title>Staff Médico</title>
   
+  <!-- Tipografía Oficial Google Fonts (Inter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Iconos FontAwesome para la campana de notificaciones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Hojas de Estilos Globales y de la Cartilla Médica -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaMedicos.css">
 </head>
-<body>
+<body class="page-layout">
 
-  <header>
-    🏥 TurnoSalud — Cartilla Médica
+  <!-- Header Superior Institucional con Menú Desplegable -->
+  <header class="header-institucional">
+    <h1 class="header-title">Cartilla Médica</h1>
+
+    <div class="header-dropdown">
+      <button class="header-dropdown-btn" type="button" aria-label="Abrir menú de navegación">
+        Navegación <span class="header-dropdown-icon">❯</span>
+      </button>
+      <div class="header-menu-content">
+        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+      </div>
+    </div>
   </header>
 
-  <main>
+  <!-- Contenido Principal: Listado y Selección de Médicos -->
+  <main class="main-content">
     <div class="contenedor-lista">
-      <h2>Seleccione el Profesional Médico</h2>
+      
+      <!-- Encabezado de Sección y Componente Notificaciones (Campana de Vacaciones) -->
+      <div class="seccion-header-container">
+        <h2 class="titulo-seccion">Seleccione el Profesional Médico</h2>
 
-      <div id="contenedorMedicos">
-        <!-- Tarjetas por defecto cargadas vía HTML o renderizadas dinámicamente -->
-        <div class="medico-card">
-          <div class="medico-info">
-            <h3>Dr. Carlos Benítez</h3>
-            <p>🩺 Cardiología Clínica</p>
-          </div>
-          <button class="btn-seleccionar" onclick="seleccionarMedico('1', 'Dr. Carlos Benítez')">
-            Elegir
+        <!-- Botón Flotante Circular / Notificaciones de Vacaciones -->
+        <div class="notificaciones-container">
+          <button id="btnNotificacionesVacaciones" class="btn-campana" title="Avisos y Vacaciones" type="button">
+            <i class="fas fa-bell"></i>
+            <span id="badgeNotificacion" class="badge-notificacion hidden">0</span>
           </button>
-        </div>
 
-        <div class="medico-card">
-          <div class="medico-info">
-            <h3>Dra. Elena Rostova</h3>
-            <p>🩺 Pediatría & Neonatología</p>
+          <!-- Modal / Popover Desplegable de Notificaciones -->
+          <div id="panelNotificaciones" class="panel-notificaciones hidden">
+            <div class="panel-header">
+              <h3>Avisos de Ausencia</h3>
+              <div class="panel-acciones">
+                <button id="btnMarcarLeidos" class="btn-marcar-leidos" title="Marcar todos como leídos" type="button">
+                  <i class="fas fa-check-double"></i> Leído
+                </button>
+                <button id="btnCerrarPanel" class="btn-cerrar" type="button">&times;</button>
+              </div>
+            </div>
+            <div id="listaAvisosVacaciones" class="panel-body">
+              <p class="sin-avisos">Cargando avisos...</p>
+            </div>
           </div>
-          <button class="btn-seleccionar" onclick="seleccionarMedico('2', 'Dra. Elena Rostova')">
-            Elegir
-          </button>
-        </div>
-
-        <div class="medico-card">
-          <div class="medico-info">
-            <h3>Dr. Marcelo Fernández</h3>
-            <p>🩺 Traumatología & Ortopedia</p>
-          </div>
-          <button class="btn-seleccionar" onclick="seleccionarMedico('3', 'Dr. Marcelo Fernández')">
-            Elegir
-          </button>
         </div>
       </div>
+
+      <!-- Sección de Búsqueda y Filtros en Tiempo Real -->
+      <section class="search-section">
+        <div class="search-bar-container">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="searchInput" 
+              class="search-input" 
+              placeholder="Buscar por médico, especialidad o clínica..." 
+              autocomplete="off"
+            />
+            <button id="clearSearchBtn" class="clear-search-btn hidden" aria-label="Limpiar búsqueda">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contenedor dinámico de profesionales médicos -->
+      <div id="contenedorMedicos" class="grid-medicos medicos-grid">
+        
+        <!-- Tarjeta de Médico 1 -->
+        <article class="medico-card" data-medico-id="1" data-nombre="Carlos Benítez" data-especialidad="Cardiology Medicina Clínica" data-clinica="Sanatorio Central">
+          <div class="medico-info">
+            <h3>Dr. Carlos Benítez</h3>
+            <p><span class="icon-spec">🩺</span> Cardiology & Medicina Clínica</p>
+          </div>
+          <button type="button" class="btn-seleccionar btn-solicitar" data-id="1" data-nombre="Dr. Carlos Benítez" onclick="seleccionarMedico('1', 'Dr. Carlos Benítez')">
+            Elegir
+          </button>
+        </article>
+
+        <!-- Tarjeta de Médico 2 -->
+        <article class="medico-card" data-medico-id="2" data-nombre="Elena Rostova" data-especialidad="Pediatría Neonatología" data-clinica="Hospital Italiano">
+          <div class="medico-info">
+            <h3>Dra. Elena Rostova</h3>
+            <p><span class="icon-spec">🩺</span> Pediatría & Neonatología</p>
+          </div>
+          <button type="button" class="btn-seleccionar btn-solicitar" data-id="2" data-nombre="Dra. Elena Rostova" onclick="seleccionarMedico('2', 'Dra. Elena Rostova')">
+            Elegir
+          </button>
+        </article>
+
+        <!-- Tarjeta de Médico 3 -->
+        <article class="medico-card" data-medico-id="3" data-nombre="Marcelo Fernández" data-especialidad="Traumatología Ortopedia" data-clinica="Clínica del Sol">
+          <div class="medico-info">
+            <h3>Dr. Marcelo Fernández</h3>
+            <p><span class="icon-spec">🩺</span> Traumatología & Ortopedia</p>
+          </div>
+          <button type="button" class="btn-seleccionar btn-solicitar" data-id="3" data-nombre="Dr. Marcelo Fernández" onclick="seleccionarMedico('3', 'Dr. Marcelo Fernández')">
+            Elegir
+          </button>
+        </article>
+
+      </div>
+
+      <!-- Mensaje informativo cuando no hay coincidencias con el filtro -->
+      <div id="noResultsMsg" class="no-results hidden">
+        <p>No se encontraron médicos que coincidan con la búsqueda.</p>
+      </div>
+
     </div>
   </main>
 
-  <footer>
-    &copy; 2026 TurnoSalud Inc. Dirección Médica General.
+  <!-- Componente: Modal Estilizado de Alerta / Advertencia de Vacaciones -->
+  <div id="modalVacaciones" class="modal-overlay hidden" role="dialog" aria-labelledby="tituloModalVacaciones" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-icon">🌴</div>
+      <h3 id="tituloModalVacaciones">Profesional no disponible</h3>
+      <p id="modalMensajeVacaciones">
+        <!-- El mensaje con la fecha se inyecta dinámicamente desde JS -->
+      </p>
+      <button id="btnEntendiVacaciones" type="button" class="btn-modal">Entendido</button>
+    </div>
+  </div>
+
+  <!-- Componente: Modal / Ventana Emergente de Ayuda -->
+  <div id="modalAyuda" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalAyuda" aria-modal="true">
+    <div class="modal-contenido">
+      <h3 id="tituloModalAyuda">¿Cómo reservar tu turno?</h3>
+      <ol>
+        <li><strong>Elige tu médico:</strong> Selecciona el profesional o especialidad de la lista.</li>
+        <li><strong>Selecciona la fecha y hora:</strong> Elige el día disponible que mejor te convenga.</li>
+        <li><strong>Ingresa tus datos:</strong> Completa tu nombre, apellido y teléfono de contacto.</li>
+        <li><strong>Confirma la reserva:</strong> Revisa la información y presiona "Confirmar". ¡Listo!</li>
+      </ol>
+      <button type="button" onclick="cerrarAyudaReserva()" class="btn-cerrar-modal">Entendido</button>
+    </div>
+  </div>
+
+  <!-- Pie de Página Institucional Fijo -->
+  <footer class="main-footer-fixed footer-institucional">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Sistema Único de Reservas.</p>
+    </div>
   </footer>
 
+  <!-- ========================================== -->
+  <!-- CARGA DE SCRIPTS EXTERNOS Y DE NEGOCIO    -->
+  <!-- ========================================== -->
+  <!-- 1. Cliente Supabase desde CDN oficial -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- 2. Configuración de cliente y credenciales -->
   <script src="js/supabase-config.js"></script>
+
+  <!-- 3. Funciones auxiliares de verificación de disponibilidad y licencias -->
+  <script>
+    /**
+     * Consulta la tabla de vacaciones para verificar si un profesional está de licencia
+     * en la fecha seleccionada por el usuario.
+     * @param {string} medicoId - ID único (UUID o Integer) del médico a consultar.
+     * @param {string} fechaSeleccionada - Fecha en formato 'YYYY-MM-DD'.
+     * @returns {Promise<boolean>} Retorna true si la fecha cae dentro del período de vacaciones.
+     */
+    async function esFechaEnVacaciones(medicoId, fechaSeleccionada) {
+      const client = window.supabaseClient || window.supabase;
+      if (!client) return false;
+
+      const { data, error } = await client
+        .from('vacaciones')
+        .select('id')
+        .eq('medico_id', medicoId)
+        .lte('fecha_inicio', fechaSeleccionada)
+        .gte('fecha_fin', fechaSeleccionada);
+
+      if (error) {
+        console.error('Error verificando vacaciones:', error);
+        return false;
+      }
+
+      return data && data.length > 0; // Retorna true si cae dentro del rango
+    }
+
+    function mostrarAyudaReserva() {
+      const modal = document.getElementById('modalAyuda');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function cerrarAyudaReserva() {
+      const modal = document.getElementById('modalAyuda');
+      if (modal) modal.style.display = 'none';
+    }
+  </script>
+
+  <!-- 4. Lógica específica del listado de médicos -->
+  <script src="js/ListaMedicosController.js"></script>
   <script src="js/ListaMedicos.js"></script>
+
 </body>
 </html>
