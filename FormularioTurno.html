@@ -4,20 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Formulario Institucional para Reserva y Agendamiento de Citas.">
-  <title>Reserva de Turno | TurnoSalud</title>
+  <title>TurnoSalud</title>
   
-  <!-- Preconexión e inclusión de Tipografías desde Google Fonts -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Hojas de Estilos Globales y Específicas del Formulario -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/FormularioTurno.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d47a1">
 </head>
 <body class="page-layout">
 
-  <!-- Cabecera Institucional Superior con Menú Desplegable Integrado -->
   <header>
     <h1 class="header-title">Confirmación de Cita</h1>
 
@@ -26,44 +28,105 @@
         Navegación <span class="header-dropdown-icon">❯</span>
       </button>
       <div class="header-menu-content">
-        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
-        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
-        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
-        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+        <a href="index.html" class="header-menu-item">Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">Ayuda</button>
       </div>
     </div>
   </header>
 
-  <!-- Área Principal de la Aplicación -->
   <main class="main-content">
     <div class="card-form">
       <h2 class="titulo-formulario">Agendar Cita Médica</h2>
       <p class="medico-titulo" id="nombreMedico">Cargando datos del profesional...</p>
 
-      <!-- Formulario interactivo de reserva de turnos -->
       <form id="formReserva" autocomplete="off">
         <div class="form-group">
-          <label for="nombre">Nombre del Paciente *</label>
+          <label for="nombre">Nombre del Paciente <span style="color: red;">*</span></label>
           <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
         </div>
 
         <div class="form-group">
-          <label for="apellido">Apellido del Paciente *</label>
+          <label for="apellido">Apellido del Paciente <span style="color: red;">*</span></label>
           <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido" required>
         </div>
 
+        <!-- Campo DNI Incorporado -->
         <div class="form-group">
-          <label for="telefono">Teléfono de Contacto *</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="Ej: +54 9 11 1234 5678" required>
+          <label for="pacienteDni">DNI / Documento <span style="color: red;">*</span></label>
+          <input 
+            type="text" 
+            id="pacienteDni" 
+            name="pacienteDni" 
+            placeholder="Ej: 40123456" 
+            maxlength="8" 
+            inputmode="numeric" 
+            pattern="[0-9]{7,8}" 
+            required 
+          />
+        </div>
+
+        <!-- Campo Teléfono Mejorado con Indicadores -->
+        <div class="form-group">
+          <label for="telefono">
+            Teléfono / WhatsApp <span style="color: red;">*</span>
+          </label>
+          <div class="input-phone-container">
+            <span class="phone-prefix">+54 9</span>
+            <input 
+              type="tel" 
+              id="telefono" 
+              name="telefono" 
+              placeholder="351 123-4567" 
+              maxlength="12" 
+              inputmode="tel" 
+              required 
+              autocomplete="tel"
+            />
+            <span class="phone-status-icon" id="phoneStatusIcon" aria-hidden="true"></span>
+          </div>
+          <small class="form-help-text" id="phoneHelpText">
+            Ingresa tu número con código de área (sin 0 ni 15). Lo usaremos para enviarte el recordatorio.
+          </small>
         </div>
 
         <div class="form-group">
-          <label for="fecha">Fecha de Cita *</label>
+          <label for="obraSocialSelect">Obra Social <span style="color: red;">*</span></label>
+          <select id="obraSocialSelect" name="obraSocialSelect" required onchange="evaluarObraSocial(this.value)">
+            <option value="" disabled selected>Seleccione su cobertura...</option>
+            <option value="Particular">Sin obra social</option>
+            <option value="OSDE">OSDE</option>
+            <option value="Swiss Medical">Swiss Medical</option>
+            <option value="Galeno">Galeno</option>
+            <option value="OSECAC">OSECAC</option>
+            <option value="PAMI">PAMI</option>
+            <option value="IOMA">IOMA</option>
+            <option value="APROSS">APROSS</option>
+            <option value="Omint">Omint</option>
+            <option value="Sancor Salud">Sancor Salud</option>
+            <option value="Medifé">Medifé</option>
+            <option value="OTRA">Otra Mutual</option>
+          </select>
+        </div>
+
+        <div class="form-group hidden" id="grupoObraSocialOtra">
+          <label for="obraSocialEspecifique">Nombre de la Mutual</label>
+          <input 
+            type="text" 
+            id="obraSocialEspecifique" 
+            name="obraSocialEspecifique" 
+            placeholder="Ej: Mutual Jerárquicos, OSPAC, etc."
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="fecha">Fecha de Cita <span style="color: red;">*</span></label>
           <input type="date" id="fecha" name="fecha" required>
         </div>
 
         <div class="form-group">
-          <label for="hora">Horario Disponible *</label>
+          <label for="hora">Horario Disponible <span style="color: red;">*</span></label>
           <select id="hora" name="hora" required>
             <option value="">Seleccione primero una fecha...</option>
           </select>
@@ -74,48 +137,48 @@
     </div>
   </main>
 
-  <!-- Componente: Modal Customizado de Confirmación de Reserva -->
+  <!-- Modal / Alerta de Confirmación de Turno con botón de WhatsApp incorporado -->
   <div class="custom-alert-overlay" id="customAlert" role="dialog" aria-labelledby="tituloAlertTurno" aria-modal="true">
-    <div class="custom-alert-card">
+    <div class="custom-alert-card confirmacion-card">
       <div class="custom-alert-icon">✓</div>
-      <h3 class="custom-alert-title" id="tituloAlertTurno">¡Turno Agendado!</h3>
-      <p class="custom-alert-message">Tu turno médico se ha registrado con éxito.</p>
+      <h3 class="custom-alert-title confirmacion-titulo" id="tituloAlertTurno">¡Turno Confirmado con Éxito!</h3>
+      <p class="custom-alert-message confirmacion-subtitulo">Tu turno médico se ha registrado correctamente. Guarda los datos de tu cita directamente en tu WhatsApp:</p>
+
+      <!-- Botón de Envío por WhatsApp -->
+      <button id="btnWhatsAppConfirmacion" type="button" class="btn-whatsapp-confirmacion" style="margin-bottom: 15px;">
+        <svg class="whatsapp-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99 0-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+        </svg>
+        Guardar Recordatorio en WhatsApp
+      </button>
+
       <button class="custom-alert-btn" id="closeAlertBtn" type="button">Aceptar</button>
     </div>
   </div>
 
-  <!-- Componente: Modal / Ventana Emergente de Ayuda -->
   <div id="modalAyuda" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalAyuda" aria-modal="true">
     <div class="modal-contenido">
       <h3 id="tituloModalAyuda">¿Cómo reservar tu turno?</h3>
       <ol>
         <li><strong>Elige tu médico:</strong> Selecciona el profesional o especialidad de la lista.</li>
         <li><strong>Selecciona la fecha y hora:</strong> Elige el día disponible que mejor te convenga.</li>
-        <li><strong>Ingresa tus datos:</strong> Completa tu nombre, apellido y teléfono de contacto.</li>
-        <li><strong>Confirma la reserva:</strong> Revisa la información y presiona "Confirmar". ¡Listo!</li>
+        <li><strong>Ingresa tus datos:</strong> Completa tu nombre, apellido, DNI y teléfono de contacto.</li>
+        <li><strong>Confirma la reserva:</strong> Revisa la información y presiona "Confirmar". Todo listo.</li>
       </ol>
       <button type="button" onclick="cerrarAyudaReserva()" class="btn-cerrar-modal">Entendido</button>
     </div>
   </div>
 
-  <!-- Pie de Página Institucional Limpio -->
   <footer class="main-footer-fixed">
     <div class="footer-container">
       <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Sistema Único de Reservas.</p>
     </div>
   </footer>
 
-  <!-- ========================================== -->
-  <!-- CARGA DE SCRIPTS EXTERNOS Y DE NEGOCIO     -->
-  <!-- ========================================== -->
-  <!-- 1. Cliente Supabase desde CDN oficial -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- 2. Configuración de cliente y credenciales de la base de datos -->
   <script src="js/supabase-config.js"></script>
-
-  <!-- 3. Lógica específica del formulario de reserva y validación de horarios -->
   <script src="js/FormularioTurno.js"></script>
+  <script src="js/pwa-init.js"></script>
 
 </body>
 </html>

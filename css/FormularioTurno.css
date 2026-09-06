@@ -1,7 +1,3 @@
-/* ==========================================
-   PAGE SPECIFIC: FORMULARIO DE TURNO
-   ========================================== */
-
 .card-form {
   background: #ffffff;
   padding: 2.5rem;
@@ -33,7 +29,14 @@ p.medico-titulo {
   width: 100%;
 }
 
+/* ==========================================================================
+   ESTRUCTURA DE CAMPOS Y FORMULARIOS
+   ========================================================================== */
+
 .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   margin-bottom: 1.25rem;
   text-align: left;
   width: 100%;
@@ -43,30 +46,126 @@ p.medico-titulo {
   display: block;
   font-size: 0.875rem;
   color: var(--neutral-800);
-  margin-bottom: 0.5rem;
   font-weight: 600;
   letter-spacing: 0.01em;
 }
 
+/* Estilizado unificado para Inputs y Selects */
 .form-group input, 
 .form-group select {
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1px solid var(--neutral-300);
+  border: 1.5px solid var(--neutral-300);
   border-radius: var(--radius-sm);
   font-size: 0.975rem;
+  font-family: 'Inter', sans-serif;
   color: var(--neutral-900);
   background-color: var(--neutral-50);
   outline: none;
   transition: var(--transition-fast);
 }
 
+/* Flecha personalizada moderna para el elemento Select */
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%3C64748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* Estados Hover, Focus y Opciones del Select */
+.form-group select:hover,
+.form-group input:hover {
+  border-color: var(--neutral-400, #94a3b8);
+}
+
 .form-group input:focus, 
 .form-group select:focus {
   border-color: var(--primary-500);
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
 }
+
+.form-group select option {
+  padding: 10px;
+  font-size: 0.95rem;
+  color: var(--neutral-900);
+  background-color: #ffffff;
+}
+
+/* Ocultar dinámico suave para campos condicionales */
+.form-group.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS DEL CAMPO TELÉFONO Y PREFIJO
+   ========================================================================== */
+
+.input-phone-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.phone-prefix {
+  background-color: var(--neutral-200, #e2e8f0);
+  color: var(--neutral-700, #334155);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.85rem 0.75rem;
+  border: 1.5px solid var(--neutral-300);
+  border-right: none;
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-left-radius: var(--radius-sm);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.input-phone-container input {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  padding-right: 2.5rem;
+}
+
+.phone-status-icon {
+  position: absolute;
+  right: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.phone-status-icon.valid {
+  color: #16a34a;
+}
+
+.phone-status-icon.invalid {
+  color: #dc2626;
+}
+
+.form-help-text {
+  font-size: 0.78rem;
+  color: var(--neutral-600, #64748b);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+.form-help-text.error {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   BOTONES
+   ========================================================================== */
 
 .btn-submit {
   width: 100%;
@@ -92,9 +191,17 @@ p.medico-titulo {
   transform: translateY(1px);
 }
 
-/* ==========================================
-   COMPONENT: MODAL DE CONFIRMACIÓN
-   ========================================== */
+.btn-submit:disabled {
+  background-color: var(--neutral-400, #94a3b8);
+  cursor: not-allowed;
+  opacity: 0.7;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ==========================================================================
+   COMPONENTES: MODAL DE ALERTA PERSONALIZADO Y CONFIRMACIÓN WHATSAPP
+   ========================================================================== */
 
 .custom-alert-overlay {
   position: fixed;
@@ -186,11 +293,63 @@ p.medico-titulo {
   transform: translateY(1px);
 }
 
+/* Estilos específicos para el bloque y botón de confirmación por WhatsApp */
+.confirmacion-card {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-top: 20px;
+  background-color: #ffffff;
+}
+
+.confirmacion-titulo {
+  color: #2e7d32;
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.confirmacion-subtitulo {
+  color: #555555;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+.btn-whatsapp-confirmacion {
+  background-color: #25d366;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1rem;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-whatsapp-confirmacion:hover {
+  background-color: #1ebd56;
+}
+
+.btn-whatsapp-confirmacion:active {
+  transform: translateY(1px);
+}
+
+.whatsapp-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* ==========================================================================
-   UTILIDADES Y AJUSTES GLOBALES
+   ACCESIBILIDAD Y CLASES UTILITARIAS
    ========================================================================== */
 
-/* Accesibilidad: Oculta elementos visualmente pero los mantiene para lectores de pantalla */
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -203,12 +362,10 @@ p.medico-titulo {
   border: 0 !important;
 }
 
-/* Desplazamiento suave para navegación por anclas */
 html {
   scroll-behavior: smooth;
 }
 
-/* Clases de utilidad para control de visibilidad rápida */
 .u-hidden {
   display: none !important;
 }
@@ -217,7 +374,6 @@ html {
   text-align: center !important;
 }
 
-/* Optimización de interacción táctil para dispositivos móviles */
 button, 
 a, 
 input[type="submit"] {
@@ -225,7 +381,6 @@ input[type="submit"] {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Prevención de desbordamiento horizontal en contenedores de texto */
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }

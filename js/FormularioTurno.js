@@ -12,9 +12,15 @@ class FormularioTurnoController {
     this.selectHora = document.getElementById('hora') || document.getElementById('horario') || document.querySelector('select');
     this.btnConfirmar = document.querySelector('button[type="submit"]') || document.querySelector('.btn-confirmar');
 
-    // Elementos del Modal Customizado de Alerta (Confirmación Exito)
+    // Elementos de Obra Social / Prepaga
+    this.selectObraSocial = document.getElementById('obraSocialSelect');
+    this.grupoObraSocialOtra = document.getElementById('grupoObraSocialOtra');
+    this.inputObraSocialEspecifique = document.getElementById('obraSocialEspecifique');
+
+    // Elementos del Modal Customizado de Alerta (Confirmación Éxito) y Botón de WhatsApp
     this.modalCustomAlert = document.getElementById('customAlert');
     this.btnCloseCustomAlert = document.getElementById('closeAlertBtn');
+    this.btnWhatsApp = document.getElementById('btnWhatsAppConfirmacion');
 
     // Elementos opcionales del Modal estilizado de Vacaciones (si existe en el DOM)
     this.modalVacaciones = document.getElementById('modalVacaciones');
@@ -48,6 +54,58 @@ class FormularioTurnoController {
       this.inputFecha.addEventListener('change', () => this.gestionarDisponibilidadHorarios());
     }
 
+    // =========================================================================
+    // MÁSCARAS DE ENTRADA Y FORMATEADORES EN TIEMPO REAL (DNI Y TELÉFONO)
+    // =========================================================================
+    const inputDni = document.getElementById('pacienteDni');
+    const inputTelefono = document.getElementById('telefono') || document.getElementById('telefonoContacto');
+
+    // Bloquear caracteres no numéricos en DNI (Máximo 8 dígitos)
+    if (inputDni) {
+      inputDni.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
+      });
+    }
+
+    // Formatear e indicar validez del teléfono automáticamente mientras se escribe
+    if (inputTelefono) {
+      const statusIcon = document.getElementById('phoneStatusIcon');
+      const helpText = document.getElementById('phoneHelpText');
+
+      inputTelefono.addEventListener('input', (e) => {
+        let num = e.target.value.replace(/\D/g, ''); // Solo dígitos
+        if (num.length > 10) num = num.slice(0, 10);
+
+        // Enmascaramiento dinámico (Ej: 351 123-4567)
+        if (num.length > 6) {
+          e.target.value = `${num.slice(0, 3)} ${num.slice(3, 6)}-${num.slice(6)}`;
+        } else if (num.length > 3) {
+          e.target.value = `${num.slice(0, 3)} ${num.slice(3)}`;
+        } else {
+          e.target.value = num;
+        }
+
+        // Feedback visual en tiempo real
+        if (statusIcon && helpText) {
+          if (num.length === 10) {
+            statusIcon.textContent = '✓';
+            statusIcon.className = 'phone-status-icon valid';
+            helpText.textContent = 'Número válido para recepción de WhatsApp.';
+            helpText.className = 'form-help-text';
+          } else if (num.length > 0) {
+            statusIcon.textContent = '✕';
+            statusIcon.className = 'phone-status-icon invalid';
+            helpText.textContent = `Faltan ${10 - num.length} dígitos (incluye código de área sin 0).`;
+            helpText.className = 'form-help-text error';
+          } else {
+            statusIcon.textContent = '';
+            helpText.textContent = 'Ingresa tu número con código de área (sin 0 ni 15).';
+            helpText.className = 'form-help-text';
+          }
+        }
+      });
+    }
+
     // Configurar botón del modal de vacaciones si existe en el DOM
     if (this.btnEntendi && this.modalVacaciones) {
       this.btnEntendi.addEventListener('click', () => {
@@ -65,6 +123,11 @@ class FormularioTurnoController {
       });
     }
 
+    // Listener para el botón de Enviar/Guardar Recordatorio en WhatsApp
+    if (this.btnWhatsApp) {
+      this.btnWhatsApp.addEventListener('click', () => this.enviarConfirmacionWhatsApp());
+    }
+
     // Listener para la confirmación de la reserva
     if (this.form) {
       this.form.addEventListener('submit', (e) => this.procesarReservaTurno(e));
@@ -75,6 +138,24 @@ class FormularioTurnoController {
     const nuevoId = 'ANON-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7);
     localStorage.setItem('usuario_anonimo_id', nuevoId);
     return nuevoId;
+  }
+
+  /**
+   * Genera el enlace dinámico con los datos de la reserva y abre WhatsApp
+   */
+  enviarConfirmacionWhatsApp() {
+    const medico = this.medicoNombre || "su profesional";
+    const fecha = this.inputFecha ? this.inputFecha.value : "la fecha seleccionada";
+    const hora = this.selectHora ? this.selectHora.value : "la hora seleccionada";
+
+    const mensaje = `Hola, este es el recordatorio de mi turno en *TurnoSalud*:\n\n` +
+                    `👨‍⚕️ *Profesional:* ${medico}\n` +
+                    `📅 *Fecha:* ${fecha}\n` +
+                    `⏰ *Hora:* ${hora} hs\n\n` +
+                    `Guardado desde la web oficial.`;
+
+    const urlWhatsApp = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlWhatsApp, '_blank');
   }
 
   /**
@@ -258,27 +339,73 @@ class FormularioTurnoController {
       return;
     }
 
+    // PREVENCIÓN DE DOBLE SUBMIT Y ESTADO DE CARGA
+    if (this.btnConfirmar) {
+      this.btnConfirmar.disabled = true;
+      this.btnConfirmar.dataset.originalText = this.btnConfirmar.textContent;
+      this.btnConfirmar.textContent = 'Agendando cita...';
+    }
+
     const fechaSeleccionadaStr = this.inputFecha.value;
 
-    // Revalidación de seguridad previa al Submit para evitar desincronizaciones de último momento
+    // Revalidación de seguridad previa al Submit para evitar desincronizaciones
     const estaDeVacaciones = await this.validarVacacionesEnFormulario(this.medicoId, fechaSeleccionadaStr);
     if (estaDeVacaciones) {
       this.notificarVacaciones(this.medicoNombre, fechaSeleccionadaStr);
       this.inputFecha.value = '';
       this.selectHora.innerHTML = '<option value="">Seleccione una fecha válida...</option>';
+      
+      if (this.btnConfirmar) {
+        this.btnConfirmar.disabled = false;
+        this.btnConfirmar.textContent = this.btnConfirmar.dataset.originalText;
+      }
       return;
     }
 
+    // 1. Obtener los elementos de la interfaz
     const inputNombre = document.getElementById('nombre') || document.getElementById('nombrePaciente');
     const inputApellido = document.getElementById('apellido') || document.getElementById('apellidoPaciente');
+    const inputDni = document.getElementById('pacienteDni');
     const inputTelefono = document.getElementById('telefono') || document.getElementById('telefonoContacto');
 
+    // 2. Validación estricta de DNI previa al procesamiento
+    const dniValido = inputDni ? inputDni.value.trim() : '';
+
+    if (!/^\d{7,8}$/.test(dniValido)) {
+      alert('Por favor ingrese un número de DNI válido (7 u 8 dígitos).');
+      if (this.btnConfirmar) {
+        this.btnConfirmar.disabled = false;
+        this.btnConfirmar.textContent = this.btnConfirmar.dataset.originalText;
+      }
+      return;
+    }
+
+    // 3. Determinar el texto final de la Obra Social / Mutual
+    let obraSocialFinal = '';
+    if (this.selectObraSocial && this.selectObraSocial.value) {
+      if (this.selectObraSocial.value === 'OTRA' && this.inputObraSocialEspecifique) {
+        obraSocialFinal = this.inputObraSocialEspecifique.value.trim();
+      } else {
+        obraSocialFinal = this.selectObraSocial.value;
+      }
+    }
+
+    // 4. Formatear el apellido concatenando la cobertura y el DNI para mantener retrocompatibilidad sin tocar la BD
+    const apellidoBase = inputApellido ? inputApellido.value.trim() : '';
+    let apellidoConCobertura = apellidoBase;
+
+    if (obraSocialFinal) {
+      apellidoConCobertura += ` (${obraSocialFinal})`;
+    }
+    apellidoConCobertura += ` - DNI: ${dniValido}`;
+
+    // 5. Estructura exacta compatible con Supabase
     const payload = {
       usuario_anonimo_id: this.usuarioAnonimoId,
       medico_id: this.medicoId,
       medico_nombre: this.medicoNombre,
       paciente_nombre: inputNombre ? inputNombre.value.trim() : '',
-      paciente_apellido: inputApellido ? inputApellido.value.trim() : '',
+      paciente_apellido: apellidoConCobertura,
       paciente_telefono: inputTelefono ? inputTelefono.value.trim() : '',
       fecha: fechaSeleccionadaStr,
       hora: this.selectHora.value,
@@ -292,24 +419,57 @@ class FormularioTurnoController {
         throw new Error('El cliente de Supabase no se encuentra activo.');
       }
 
-      // 1. Registrar la cita en la tabla 'turnos'
+      // Registrar la cita en la tabla 'turnos'
       const { error: insertError } = await client
         .from('turnos')
         .insert([payload]);
 
       if (insertError) throw insertError;
 
-      // Mostrar el modal customizado de éxito en vez del alert nativo
+      // Mostrar el modal customizado de éxito
       this.mostrarModalExito();
 
     } catch (err) {
       console.error('[FormularioTurno Submit Error]:', err.message || err);
       alert('Ocurrió un inconveniente al agendar la cita. Por favor reintente.');
+
+      // Restaurar estado del botón en caso de error
+      if (this.btnConfirmar) {
+        this.btnConfirmar.disabled = false;
+        this.btnConfirmar.textContent = this.btnConfirmar.dataset.originalText;
+      }
     }
   }
 }
 
-// Función global de ayuda accesible si se llama externamente
+// Funciones globales de evaluación y ayuda para interactuar con los eventos HTML inline
+function evaluarObraSocial(valorSeleccionado) {
+  const grupoOtra = document.getElementById('grupoObraSocialOtra');
+  const inputOtra = document.getElementById('obraSocialEspecifique');
+
+  if (grupoOtra && inputOtra) {
+    if (valorSeleccionado === 'OTRA') {
+      grupoOtra.classList.remove('hidden');
+      inputOtra.setAttribute('required', 'true');
+      inputOtra.focus();
+    } else {
+      grupoOtra.classList.add('hidden');
+      inputOtra.removeAttribute('required');
+      inputOtra.value = '';
+    }
+  }
+}
+
+function mostrarAyudaReserva() {
+  const modal = document.getElementById('modalAyuda');
+  if (modal) modal.style.display = 'flex';
+}
+
+function cerrarAyudaReserva() {
+  const modal = document.getElementById('modalAyuda');
+  if (modal) modal.style.display = 'none';
+}
+
 async function validarVacacionesEnFormulario(medicoId, fechaSeleccionada) {
   if (window.formularioController) {
     return await window.formularioController.validarVacacionesEnFormulario(medicoId, fechaSeleccionada);
@@ -317,11 +477,19 @@ async function validarVacacionesEnFormulario(medicoId, fechaSeleccionada) {
   return false;
 }
 
-// Exponer la función y clase al scope global
+function enviarConfirmacionWhatsApp() {
+  if (window.formularioController) {
+    window.formularioController.enviarConfirmacionWhatsApp();
+  }
+}
+
+window.evaluarObraSocial = evaluarObraSocial;
+window.mostrarAyudaReserva = mostrarAyudaReserva;
+window.cerrarAyudaReserva = cerrarAyudaReserva;
 window.validarVacacionesEnFormulario = validarVacacionesEnFormulario;
+window.enviarConfirmacionWhatsApp = enviarConfirmacionWhatsApp;
 window.FormularioTurnoController = FormularioTurnoController;
 
-// Inicialización segura del controlador al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
   window.formularioController = new FormularioTurnoController();
 });

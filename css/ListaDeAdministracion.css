@@ -1,3 +1,33 @@
+/* ==========================================================================
+   1. RESET GLOBAL Y BOX-SIZING
+   ========================================================================== */
+
+*, 
+*::before, 
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+button, 
+a, 
+input[type="submit"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ==========================================================================
+   2. ESTRUCTURA Y CONTENEDORES PRINCIPALES
+   ========================================================================== */
+
 .contenedor-admin {
   max-width: 1100px;
   width: 100%;
@@ -20,9 +50,14 @@
   font-size: 0.95rem;
 }
 
+
+/* ==========================================================================
+   3. TARJETAS Y GRID DE ADMINISTRACIÓN
+   ========================================================================== */
+
 .admin-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
@@ -33,6 +68,11 @@
   border: 1px solid var(--neutral-200, #e5e7eb);
   box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
   transition: var(--transition-normal, all 0.3s ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
 }
 
 .admin-card:hover {
@@ -45,6 +85,10 @@
   color: var(--neutral-900, #111827);
   margin-bottom: 0.75rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .admin-card p {
@@ -54,61 +98,9 @@
   line-height: 1.5;
 }
 
-.btn-admin-action {
-  display: inline-block;
-  background-color: var(--primary-500, #008080);
-  color: #ffffff;
-  padding: 0.75rem 1.25rem;
-  border-radius: var(--radius-sm, 6px);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: none;
-  cursor: pointer;
-  transition: var(--transition-fast, all 0.2s ease);
-}
-
-.btn-admin-action:hover {
-  background-color: var(--primary-600, #006666);
-}
-
-.display-none {
-  display: none !important;
-}
-
-.full-width {
+.admin-card .btn-admin-action {
+  margin-top: auto;
   width: 100%;
-  text-align: center;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.table-responsive {
-  overflow-x: auto;
-}
-
-.metric-number {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--primary-600, #008080);
-  margin-bottom: 1rem;
-}
-
-.metric-status {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--neutral-800, #1f2937);
-  margin-bottom: 1.5rem;
-}
-
-.btn-dark {
-  background-color: var(--neutral-800, #1f2937) !important;
-}
-
-.btn-dark:hover {
-  background-color: var(--neutral-900, #111827) !important;
 }
 
 .admin-section-card {
@@ -131,6 +123,27 @@
   color: #4b5563;
   font-size: 0.95rem;
 }
+
+.metric-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-600, #008080);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.metric-status {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-800, #1f2937);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   4. FORMULARIO DE ADMINISTRACIÓN
+   ========================================================================== */
 
 .admin-form-box {
   background: #f9fafb;
@@ -181,6 +194,29 @@
   box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
 }
 
+
+/* ==========================================================================
+   5. BOTONES Y ACCIONES
+   ========================================================================== */
+
+.btn-admin-action {
+  display: inline-block;
+  background-color: var(--primary-500, #008080);
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm, 6px);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast, all 0.2s ease);
+}
+
+.btn-admin-action:hover {
+  background-color: var(--primary-600, #006666);
+}
+
 .btn-submit {
   border: none;
   cursor: pointer;
@@ -188,10 +224,42 @@
   font-weight: 700;
 }
 
+.btn-dark {
+  background-color: var(--neutral-800, #1f2937) !important;
+}
+
+.btn-dark:hover {
+  background-color: var(--neutral-900, #111827) !important;
+}
+
+.btn-delete-action {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete-action:hover {
+  background-color: #dc2626;
+}
+
+.btn-large {
+  padding: 12px 20px;
+  font-size: 1rem;
+}
+
 
 /* ==========================================================================
    6. TABLAS DE DATOS PERSONALIZADAS
    ========================================================================== */
+
+.table-responsive {
+  overflow-x: auto;
+}
 
 .subtable-title {
   margin-bottom: 0.8rem;
@@ -245,25 +313,10 @@
   display: inline-block;
 }
 
-.btn-delete-action {
-  background-color: #ef4444;
-  color: #ffffff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
 
-.btn-delete-action:hover {
-  background-color: #dc2626;
-}
-
-.btn-large {
-  padding: 12px 20px;
-  font-size: 1rem;
-}
+/* ==========================================================================
+   7. ZONA DE PELIGRO (DANGER ZONE)
+   ========================================================================== */
 
 .danger-zone-box {
   background-color: #fef2f2;
@@ -285,6 +338,11 @@
   font-size: 0.95rem;
   line-height: 1.5;
 }
+
+
+/* ==========================================================================
+   8. MODALES DINÁMICOS Y PERSONALIZADOS
+   ========================================================================== */
 
 .modal-custom-overlay {
   position: fixed;
@@ -373,11 +431,21 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
 }
 
-/* --- Modales Declarativos Predeterminados en el HTML --- */
+
+/* ==========================================================================
+   9. MODALES DECLARATIVOS (ALERTAS DEL SISTEMA)
+   ========================================================================== */
+
 .custom-alert-overlay {
   position: fixed;
   top: 0;
@@ -429,7 +497,6 @@
   margin: 0 auto 1.25rem auto;
 }
 
-/* Color rojo de advertencia para acciones críticas de eliminación */
 .custom-alert-icon.warning-danger {
   background-color: #fef2f2;
   color: #dc2626;
@@ -479,7 +546,7 @@
 }
 
 .custom-alert-btn.secondary:hover {
-  background-color: #e5e7eb;
+  background-color: #e5e5e5;
 }
 
 .custom-alert-btn.danger {
@@ -493,10 +560,9 @@
 
 
 /* ==========================================================================
-   10. UTILIDADES Y AJUSTES GLOBALES
+   10. UTILIDADES GLOBALES
    ========================================================================== */
 
-/* Accesibilidad: Oculta elementos visualmente pero los mantiene para lectores de pantalla */
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -509,29 +575,167 @@
   border: 0 !important;
 }
 
-/* Desplazamiento suave para navegación por anclas */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Clases de utilidad para control de visibilidad rápida */
-.u-hidden {
+.u-hidden,
+.display-none {
   display: none !important;
 }
 
-.u-text-center {
+.u-text-center,
+.text-center {
   text-align: center !important;
 }
 
-/* Optimización de interacción táctil para dispositivos móviles */
-button, 
-a, 
-input[type="submit"] {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+.full-width {
+  width: 100%;
+  text-align: center;
 }
 
-/* Prevención de desbordamiento horizontal en contenedores de texto */
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+
+/* ==========================================================================
+   11. ADAPTABILIDAD MÓVIL (RESPONSIVE DESIGN)
+   ========================================================================== */
+
+@media screen and (max-width: 992px) {
+  .admin-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contenedor-admin {
+    padding: 0 12px;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-card, 
+  .admin-section-card {
+    padding: 1.25rem 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .admin-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .metric-number {
+    font-size: 2rem;
+  }
+
+  .form-grid-medico {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .admin-form-box {
+    padding: 1rem;
+  }
+
+  .form-group-admin input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .btn-submit,
+  .btn-admin-action {
+    width: 100%;
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 0.5rem;
+  }
+
+  /* --- Transforma las tablas tradicionales en Cards en Móvil --- */
+  .tabla-custom, 
+  .tabla-custom thead, 
+  .tabla-custom tbody, 
+  .tabla-custom th, 
+  .tabla-custom td, 
+  .tabla-custom tr { 
+    display: block; 
+  }
+  
+  /* Oculta los encabezados tradicionales de la tabla */
+  .tabla-custom thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .tabla-custom tr {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+  
+  .tabla-custom th, 
+  .tabla-custom td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+
+  .tabla-custom td { 
+    border: none;
+    border-bottom: 1px solid #f3f4f6; 
+    position: relative;
+    padding-left: 50%; 
+    text-align: right;
+    white-space: normal;
+    font-size: 0.9rem;
+  }
+
+  .tabla-custom td:last-child {
+    border-bottom: 0;
+  }
+  
+  /* Muestra el nombre de la columna mediante data-label */
+  .tabla-custom td::before { 
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+    color: #111827;
+    content: attr(data-label);
+  }
+
+  .modal-custom-actions,
+  .modal-actions-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-modal-secondary,
+  .btn-modal-danger,
+  .custom-alert-btn {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .admin-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+  }
+
+  .badge-horario, 
+  .badge-estado {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+  }
 }

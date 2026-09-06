@@ -1,0 +1,21 @@
+{
+  "short_name": "TurnoSalud",
+  "name": "TurnoSalud - Reserva de Citas",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063176.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063176.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "theme_color": "#0d47a1",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -1,11 +1,3 @@
-/**
- * ============================================================================
- * TurnoSalud — Core Engine & Configuración Global de Supabase
- * ============================================================================
- * Este archivo centraliza la inicialización de la conexión con la base de datos,
- * las variables de entorno globales de la aplicación y las funciones
- * de interacción para modales y componentes de la interfaz.
- */
 
 (function () {
   'use strict';

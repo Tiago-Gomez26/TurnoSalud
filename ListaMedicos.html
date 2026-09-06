@@ -4,23 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Cartilla Médica y Selección de Profesionales - TurnoSalud">
-  <title>Staff Médico</title>
+  <title>TurnoSalud</title>
   
-  <!-- Tipografía Oficial Google Fonts (Inter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Iconos FontAwesome para la campana de notificaciones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
 
-  <!-- Hojas de Estilos Globales y de la Cartilla Médica -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaMedicos.css">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d47a1">
 </head>
 <body class="page-layout">
 
-  <!-- Header Superior Institucional con Menú Desplegable -->
   <header class="header-institucional">
     <h1 class="header-title">Cartilla Médica</h1>
 
@@ -29,30 +29,26 @@
         Navegación <span class="header-dropdown-icon">❯</span>
       </button>
       <div class="header-menu-content">
-        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
-        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
-        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
-        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+        <a href="index.html" class="header-menu-item">Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">Ayuda</button>
       </div>
     </div>
   </header>
 
-  <!-- Contenido Principal: Listado y Selección de Médicos -->
   <main class="main-content">
     <div class="contenedor-lista">
       
-      <!-- Encabezado de Sección y Componente Notificaciones (Campana de Vacaciones) -->
       <div class="seccion-header-container">
         <h2 class="titulo-seccion">Seleccione el Profesional Médico</h2>
 
-        <!-- Botón Flotante Circular / Notificaciones de Vacaciones -->
         <div class="notificaciones-container">
           <button id="btnNotificacionesVacaciones" class="btn-campana" title="Avisos y Vacaciones" type="button">
             <i class="fas fa-bell"></i>
             <span id="badgeNotificacion" class="badge-notificacion hidden">0</span>
           </button>
 
-          <!-- Modal / Popover Desplegable de Notificaciones -->
           <div id="panelNotificaciones" class="panel-notificaciones hidden">
             <div class="panel-header">
               <h3>Avisos de Ausencia</h3>
@@ -70,11 +66,10 @@
         </div>
       </div>
 
-      <!-- Sección de Búsqueda y Filtros en Tiempo Real -->
       <section class="search-section">
         <div class="search-bar-container">
           <div class="search-input-wrapper">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><i class="fas fa-search"></i></span>
             <input 
               type="text" 
               id="searchInput" 
@@ -87,36 +82,32 @@
         </div>
       </section>
 
-      <!-- Contenedor dinámico de profesionales médicos -->
       <div id="contenedorMedicos" class="grid-medicos medicos-grid">
         
-        <!-- Tarjeta de Médico 1 -->
         <article class="medico-card" data-medico-id="1" data-nombre="Carlos Benítez" data-especialidad="Cardiology Medicina Clínica" data-clinica="Sanatorio Central">
           <div class="medico-info">
             <h3>Dr. Carlos Benítez</h3>
-            <p><span class="icon-spec">🩺</span> Cardiology & Medicina Clínica</p>
+            <p>Cardiology & Medicina Clínica</p>
           </div>
           <button type="button" class="btn-seleccionar btn-solicitar" data-id="1" data-nombre="Dr. Carlos Benítez" onclick="seleccionarMedico('1', 'Dr. Carlos Benítez')">
             Elegir
           </button>
         </article>
 
-        <!-- Tarjeta de Médico 2 -->
         <article class="medico-card" data-medico-id="2" data-nombre="Elena Rostova" data-especialidad="Pediatría Neonatología" data-clinica="Hospital Italiano">
           <div class="medico-info">
             <h3>Dra. Elena Rostova</h3>
-            <p><span class="icon-spec">🩺</span> Pediatría & Neonatología</p>
+            <p>Pediatría & Neonatología</p>
           </div>
           <button type="button" class="btn-seleccionar btn-solicitar" data-id="2" data-nombre="Dra. Elena Rostova" onclick="seleccionarMedico('2', 'Dra. Elena Rostova')">
             Elegir
           </button>
         </article>
 
-        <!-- Tarjeta de Médico 3 -->
         <article class="medico-card" data-medico-id="3" data-nombre="Marcelo Fernández" data-especialidad="Traumatología Ortopedia" data-clinica="Clínica del Sol">
           <div class="medico-info">
             <h3>Dr. Marcelo Fernández</h3>
-            <p><span class="icon-spec">🩺</span> Traumatología & Ortopedia</p>
+            <p>Traumatología & Ortopedia</p>
           </div>
           <button type="button" class="btn-seleccionar btn-solicitar" data-id="3" data-nombre="Dr. Marcelo Fernández" onclick="seleccionarMedico('3', 'Dr. Marcelo Fernández')">
             Elegir
@@ -125,7 +116,6 @@
 
       </div>
 
-      <!-- Mensaje informativo cuando no hay coincidencias con el filtro -->
       <div id="noResultsMsg" class="no-results hidden">
         <p>No se encontraron médicos que coincidan con la búsqueda.</p>
       </div>
@@ -133,19 +123,15 @@
     </div>
   </main>
 
-  <!-- Componente: Modal Estilizado de Alerta / Advertencia de Vacaciones -->
   <div id="modalVacaciones" class="modal-overlay hidden" role="dialog" aria-labelledby="tituloModalVacaciones" aria-modal="true">
     <div class="modal-card">
-      <div class="modal-icon">🌴</div>
       <h3 id="tituloModalVacaciones">Profesional no disponible</h3>
       <p id="modalMensajeVacaciones">
-        <!-- El mensaje con la fecha se inyecta dinámicamente desde JS -->
       </p>
       <button id="btnEntendiVacaciones" type="button" class="btn-modal">Entendido</button>
     </div>
   </div>
 
-  <!-- Componente: Modal / Ventana Emergente de Ayuda -->
   <div id="modalAyuda" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalAyuda" aria-modal="true">
     <div class="modal-contenido">
       <h3 id="tituloModalAyuda">¿Cómo reservar tu turno?</h3>
@@ -159,31 +145,17 @@
     </div>
   </div>
 
-  <!-- Pie de Página Institucional Fijo -->
   <footer class="main-footer-fixed footer-institucional">
     <div class="footer-container">
       <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Sistema Único de Reservas.</p>
     </div>
   </footer>
 
-  <!-- ========================================== -->
-  <!-- CARGA DE SCRIPTS EXTERNOS Y DE NEGOCIO    -->
-  <!-- ========================================== -->
-  <!-- 1. Cliente Supabase desde CDN oficial -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- 2. Configuración de cliente y credenciales -->
   <script src="js/supabase-config.js"></script>
 
-  <!-- 3. Funciones auxiliares de verificación de disponibilidad y licencias -->
   <script>
-    /**
-     * Consulta la tabla de vacaciones para verificar si un profesional está de licencia
-     * en la fecha seleccionada por el usuario.
-     * @param {string} medicoId - ID único (UUID o Integer) del médico a consultar.
-     * @param {string} fechaSeleccionada - Fecha en formato 'YYYY-MM-DD'.
-     * @returns {Promise<boolean>} Retorna true si la fecha cae dentro del período de vacaciones.
-     */
     async function esFechaEnVacaciones(medicoId, fechaSeleccionada) {
       const client = window.supabaseClient || window.supabase;
       if (!client) return false;
@@ -200,7 +172,7 @@
         return false;
       }
 
-      return data && data.length > 0; // Retorna true si cae dentro del rango
+      return data && data.length > 0;
     }
 
     function mostrarAyudaReserva() {
@@ -214,9 +186,9 @@
     }
   </script>
 
-  <!-- 4. Lógica específica del listado de médicos -->
   <script src="js/ListaMedicosController.js"></script>
   <script src="js/ListaMedicos.js"></script>
+  <script src="js/pwa-init.js"></script>
 
 </body>
 </html>

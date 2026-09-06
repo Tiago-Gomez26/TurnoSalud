@@ -4,22 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Gestión, itinerario y lista de turnos médicos agendados - TurnoSalud">
-  <title>Planilla de Turnos | TurnoSalud</title>
+  <title>TurnoSalud</title>
   
   <!-- Tipografía Oficial Google Fonts (Inter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
   
   <!-- Hojas de Estilos Globales y Locales -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaDeTurnos.css">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d47a1">
 </head>
 <body class="page-layout">
 
   <!-- Header Superior Institucional -->
   <header class="header-institucional">
-    <h1 class="header-title">🏥 TurnoSalud — Agenda Médica Operativa</h1>
+    <h1 class="header-title">Agenda Médica Operativa</h1>
   </header>
 
   <!-- Contenido Principal: Agenda e Itinerario de Turnos -->
@@ -56,7 +60,7 @@
     </div>
   </main>
 
-  <!-- Botón Flotante Circular de Palmera para Registrar Vacaciones -->
+  <!-- Botón Flotante Circular para Registrar Vacaciones -->
   <button type="button" class="btn-vacaciones-flotante" onclick="abrirModalVacaciones()" title="Registrar Vacaciones / Licencias" aria-label="Registrar Vacaciones">
     🌴
   </button>
@@ -64,7 +68,7 @@
   <!-- Componente Modal: Registrar Vacaciones -->
   <div id="modalVacaciones" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalVacaciones" aria-modal="true">
     <div class="modal-contenido modal-vacaciones-box">
-      <h3 id="tituloModalVacaciones">🌴 Registrar Período de Vacaciones</h3>
+      <h3 id="tituloModalVacaciones">Registrar Período de Vacaciones</h3>
       <p class="modal-desc">Seleccione el rango de fechas en las que no estará disponible para atender turnos.</p>
 
       <form id="formVacaciones" autocomplete="off">
@@ -102,6 +106,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/ListaDeTurnos.js"></script>
+  <script src="js/pwa-init.js"></script>
 
 </body>
 </html>

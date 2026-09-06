@@ -4,20 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Consulta de historial de turnos médicos asignados al paciente.">
-  <title>Mis Turnos</title>
+  <title>TurnoSalud</title>
 
-  <!-- Preconexión e inclusión de Tipografías desde Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
 
-  <!-- Hojas de Estilos Globales y Específicas de Mis Turnos -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/MisTurnos.css">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d47a1">
 </head>
 <body class="page-layout">
 
-  <!-- Cabecera Institucional Superior con Navegación Desplegable -->
   <header>
     <h1 class="header-title">Portal del Paciente</h1>
 
@@ -26,20 +27,18 @@
         Navegación <span class="header-dropdown-icon">❯</span>
       </button>
       <div class="header-menu-content">
-        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
-        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
-        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
-        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+        <a href="index.html" class="header-menu-item">Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">Ayuda</button>
       </div>
     </div>
   </header>
 
-  <!-- Área Principal de Contenido: Historial de Turnos -->
   <main class="main-content">
     <div class="contenedor-mis-turnos">
       <h2 class="titulo-seccion">Sus Citas Programadas</h2>
 
-      <!-- Contenedor dinámico en el que MisTurnos.js renderizará las tarjetas de turnos -->
       <div id="listaTurnos" class="contenedor-lista-turnos">
         <p class="text-center" style="color: #64748b; padding: 20px 0;">
           Cargando turnos registrados en este dispositivo...
@@ -47,10 +46,9 @@
       </div>
     </div>
 
-    <!-- Modal 1: Confirmación de Cancelación -->
     <div class="custom-alert-overlay" id="confirmCancelModal" role="dialog" aria-labelledby="confirmCancelTitle" aria-modal="true">
       <div class="custom-alert-card">
-        <div class="custom-alert-icon warning">⚠️</div>
+        <div class="custom-alert-icon warning">!</div>
         <h3 class="custom-alert-title" id="confirmCancelTitle">¿Cancelar cita médica?</h3>
         <p class="custom-alert-message">Esta acción no se puede deshacer. El horario quedará disponible para otro paciente.</p>
         <div class="modal-actions-row">
@@ -60,7 +58,6 @@
       </div>
     </div>
 
-    <!-- Modal 2: Notificación de Éxito al Cancelar -->
     <div class="custom-alert-overlay" id="successCancelModal" role="dialog" aria-labelledby="successCancelTitle" aria-modal="true">
       <div class="custom-alert-card">
         <div class="custom-alert-icon">✓</div>
@@ -71,18 +68,15 @@
     </div>
   </main>
 
-  <!-- Componente: Modal / Ventana Emergente de Detalle de Turno -->
   <div id="modalDetalleTurno" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalDetalle" aria-modal="true">
     <div class="modal-contenido">
       <h3 id="tituloModalDetalle">Detalle Completo del Turno</h3>
       <div id="cuerpoModalDetalle" style="text-align: left; margin: 15px 0;">
-        <!-- Se llena dinámicamente vía JS -->
       </div>
       <button type="button" onclick="cerrarModalDetalle()" class="btn-cerrar-modal">Cerrar</button>
     </div>
   </div>
 
-  <!-- Componente: Modal / Ventana Emergente de Ayuda -->
   <div id="modalAyuda" class="modal-ayuda" style="display: none;" role="dialog" aria-labelledby="tituloModalAyuda" aria-modal="true">
     <div class="modal-contenido">
       <h3 id="tituloModalAyuda">¿Cómo reservar tu turno?</h3>
@@ -96,24 +90,16 @@
     </div>
   </div>
 
-  <!-- Pie de Página Institucional Fijo -->
   <footer class="main-footer-fixed">
     <div class="footer-container">
       <p class="footer-copy">&copy; 2026 TurnoSalud Inc. Sistema Único de Reservas.</p>
     </div>
   </footer>
 
-  <!-- ========================================== -->
-  <!-- CARGA DE SCRIPTS EXTERNOS Y DE NEGOCIO     -->
-  <!-- ========================================== -->
-  <!-- 1. Cliente Supabase desde CDN oficial -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- 2. Configuración del cliente y conexión a Supabase -->
   <script src="js/supabase-config.js"></script>
-
-  <!-- 3. Lógica específica para consultar y mostrar las citas asociadas al dispositivo -->
   <script src="js/MisTurnos.js"></script>
+  <script src="js/pwa-init.js"></script>
 
 </body>
 </html>

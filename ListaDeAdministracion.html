@@ -4,32 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Dashboard General de Administración y Métricas Institucionales.">
-  <title>Panel Institucional | TurnoSalud</title>
+  <title>TurnoSalud</title>
   
   <!-- Fuentes e Iconos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
   
   <!-- Hojas de Estilos separadas -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaDeAdministracion.css">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d47a1">
 </head>
 <body class="page-layout">
 
   <!-- Header Superior Institucional con Menú Desplegable -->
   <header>
-    <h1 class="header-title">🏥 TurnoSalud — Control Central Institucional</h1>
+    <h1 class="header-title">Control Central Institucional</h1>
 
     <div class="header-dropdown">
       <button class="header-dropdown-btn" type="button" aria-label="Abrir menú de navegación">
         Navegación <span class="header-dropdown-icon">❯</span>
       </button>
       <div class="header-menu-content">
-        <a href="index.html" class="header-menu-item">🏠 Inicio</a>
-        <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
-        <a href="Login.html" class="header-menu-item">🔒 Acceso</a>
-        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+        <a href="index.html" class="header-menu-item">Inicio</a>
+        <a href="MisTurnos.html" class="header-menu-item">Mis Turnos</a>
+        <a href="Login.html" class="header-menu-item">Acceso</a>
+        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">Ayuda</button>
       </div>
     </div>
   </header>
@@ -46,7 +50,7 @@
       <div class="admin-grid">
         <!-- Card 1: Reservas / Agenda -->
         <div class="admin-card">
-          <h3>📊 Reservas Totales</h3>
+          <h3>Reservas Totales</h3>
           <p>Métricas consolidadas de turnos emitidos a la fecha.</p>
           <div class="metric-number" id="totalTurnos">0</div>
           <button id="btnVerAgenda" class="btn-admin-action full-width">Ver Agenda General</button>
@@ -54,7 +58,7 @@
 
         <!-- Card 2: Staff Médico -->
         <div class="admin-card">
-          <h3>👨‍⚕️ Staff Profesional</h3>
+          <h3>Staff Profesional</h3>
           <p>Administración del cuerpo de médicos activos en cartilla.</p>
           <div class="metric-number" id="totalMedicos">0</div>
           <button id="btnGestionarMedicos" class="btn-admin-action full-width">Gestionar Médicos</button>
@@ -62,16 +66,13 @@
 
         <!-- Card 3: Ajustes / Mantenimiento -->
         <div class="admin-card">
-          <h3>⚙️ Configuración del Sistema</h3>
+          <h3>Configuración del Sistema</h3>
           <p>Ajuste de parámetros, horarios de atención y base de datos.</p>
           <div class="metric-status">Estado: Óptimo</div>
           <button id="btnAjustesSistema" class="btn-admin-action btn-dark full-width">Ajustes de Sistema</button>
         </div>
       </div>
 
-      <!-- =================================================================== -->
-      <!-- PANTALLA 1: AGENDA GENERAL ORDENADA POR DÍA Y HORA                  -->
-      <!-- =================================================================== -->
       <section id="secAgendaGeneral" class="admin-section-card display-none">
         <h2 class="section-title">Agenda General de Turnos</h2>
         <div class="table-responsive">
@@ -86,21 +87,17 @@
               </tr>
             </thead>
             <tbody id="cuerpoTablaAgendaAdmin">
-              <!-- Carga dinámica vía JavaScript -->
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- =================================================================== -->
-      <!-- PANTALLA 2: GESTIÓN DE MÉDICOS (ALTA COMPLETA Y BAJA MEJORADA)      -->
-      <!-- =================================================================== -->
       <section id="secGestionMedicos" class="admin-section-card display-none">
         <h2 class="section-title">Gestión del Cuerpo Médico</h2>
         
         <!-- Formulario completo de Alta de Médico con Credenciales y Horarios -->
         <form id="formAgregarMedico" class="admin-form-box">
-          <h4 class="form-title">➕ Registrar Nuevo Profesional y Crear Cuenta</h4>
+          <h4 class="form-title">Registrar Nuevo Profesional y Crear Cuenta</h4>
           
           <div class="form-grid-medico">
             <div class="form-group-admin">
@@ -130,7 +127,7 @@
           </div>
 
           <button type="submit" id="btnAgregarMedico" class="btn-admin-action btn-submit">
-            👨‍⚕️ Registrar y Crear Cuenta de Médico
+            Registrar y Crear Cuenta de Médico
           </button>
         </form>
 
@@ -147,26 +144,22 @@
               </tr>
             </thead>
             <tbody id="cuerpoTablaMedicosAdmin">
-              <!-- Carga dinámica vía JavaScript -->
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- =================================================================== -->
-      <!-- PANTALLA 3: AJUSTES Y MANTENIMIENTO DE BASE DE DATOS               -->
-      <!-- =================================================================== -->
       <section id="secAjustesSistema" class="admin-section-card display-none">
         <h2 class="section-title">Mantenimiento de Base de Datos</h2>
         <p class="section-subtitle">Herramientas operativas de limpieza y depuración de registros en la base de datos institucional.</p>
         
         <div class="danger-zone-box">
-          <h4 class="danger-title">⚠️ Depuración de Agenda Antigua</h4>
+          <h4 class="danger-title">Depuración de Agenda Antigua</h4>
           <p class="danger-text">
             Esta acción eliminará de forma irreversible todos los turnos cuyo registro corresponda a fechas anteriores al 1° del mes actual.
           </p>
           <button id="btnDepurarTurnos" class="btn-delete-action btn-large">
-            🗑️ Eliminar Turnos del Mes Pasado
+            Eliminar Turnos del Mes Pasado
           </button>
         </div>
       </section>
@@ -174,14 +167,10 @@
     </div>
   </main>
 
-  <!-- =================================================================== -->
-  <!-- MODALES PERSONALIZADOS DE ELIMINACIÓN DE PROFESIONAL                 -->
-  <!-- =================================================================== -->
-
   <!-- Modal 1: Confirmación de Eliminación -->
   <div id="confirmDeleteModal" class="custom-alert-overlay">
     <div class="custom-alert-card">
-      <div class="custom-alert-icon warning-danger">⚠️</div>
+      <div class="custom-alert-icon warning-danger">!</div>
       <h3 class="custom-alert-title">Eliminar Profesional</h3>
       <p id="confirmDeleteMessage" class="custom-alert-message">
         ¿Está seguro de que desea eliminar permanentemente al profesional?
@@ -232,6 +221,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/ListaDeAdministracion.js"></script>
+  <script src="js/pwa-init.js"></script>
 
 </body>
 </html>
