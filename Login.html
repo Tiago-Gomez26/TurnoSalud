@@ -6,21 +6,22 @@
   <meta name="description" content="Acceso seguro al portal corporativo y administrativo de TurnoSalud.">
   <title>TurnoSalud</title>
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Iconos para navegador, iOS y PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
-  <link rel="apple-touch-icon" href="img/icon-192.png">
+  <link rel="apple-touch-icon" href="img/logo.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d47a1">
+
+  <!-- Precarga de fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos CSS -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/Login.css">
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0d47a1">
 </head>
 <body>
-
-  <header>
-    Portal de Autenticación
-  </header>
 
   <main>
     <div class="card-login">
@@ -47,6 +48,7 @@
     &copy; 2026 TurnoSalud Inc. Acceso Protegido por SSL/TLS.
   </footer>
 
+  <!-- Scripts JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/Login.js"></script>

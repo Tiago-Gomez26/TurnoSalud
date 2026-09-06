@@ -6,20 +6,25 @@
   <meta name="description" content="Panel de gestión diaria para profesionales de la salud.">
   <title>TurnoSalud</title>
   
+  <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Favicons y PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
-  <link rel="apple-touch-icon" href="img/icon-192.png">
+  <link rel="apple-touch-icon" href="img/logo.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d47a1">
+
+  <!-- Hojas de Estilos -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/DashboardMedico.css">
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0d47a1">
 </head>
 <body class="page-layout">
 
-  <header class="main-header">
+  <!-- Cabecera Principal / Navegación -->
+  <header class="main-header navbar">
     <h1 class="header-title">Panel de Control Profesional</h1>
     <div class="user-info">
       <span id="lblMedicoNombre">Cargando Médico...</span>
@@ -95,6 +100,7 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/DashboardMedico.js"></script>
