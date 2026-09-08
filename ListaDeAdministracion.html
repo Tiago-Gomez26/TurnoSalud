@@ -20,8 +20,7 @@
   <!-- Hojas de Estilos separadas -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/ListaDeAdministracion.css">
-  
-  <!-- Vinculo al manifest para Android/PWA -->
+  <link rel="stylesheet" href="css/configuracion.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0d47a1">
 </head>
@@ -32,17 +31,18 @@
 
     <h1 class="header-title">Control Central Institucional</h1>
 
-    <div class="header-dropdown">
-      <button class="header-dropdown-btn" type="button" aria-label="Abrir menú de navegación">
-        Navegación <span class="header-dropdown-icon">❯</span>
-      </button>
-      <div class="header-menu-content">
-        <a href="index.html" class="header-menu-item">Inicio</a>
-        <a href="MisTurnos.html" class="header-menu-item">Mis Turnos</a>
-        <a href="Login.html" class="header-menu-item">Acceso</a>
-        <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">Ayuda</button>
-      </div>
-    </div>
+<div class="header-dropdown">
+  <button class="header-dropdown-btn" type="button" aria-label="Abrir menú de navegación">
+    Navegación <span class="header-dropdown-icon">❯</span>
+  </button>
+  <div class="header-menu-content">
+    <a href="index.html" class="header-menu-item">🏠 Inicio</a>
+    <a href="MisTurnos.html" class="header-menu-item">📅 Mis Turnos</a>
+    <a href="Login.html" class="header-menu-item">🔑 Acceso</a>
+    <button type="button" class="header-menu-item" onclick="mostrarAyudaReserva()">❓ Ayuda</button>
+    <button type="button" class="header-menu-item" id="btnAbrirAjustesMenu">⚙️ Ajustes</button>
+  </div>
+</div>
   </header>
 
   <!-- Área Principal de Contenido -->
@@ -229,6 +229,7 @@
   <script src="js/supabase-config.js"></script>
   <script src="js/ListaDeAdministracion.js"></script>
   <script src="js/pwa-init.js"></script>
+  <script src="js/configuracion.js"></script>
 
 </body>
 </html>

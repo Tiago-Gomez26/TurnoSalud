@@ -1,0 +1,225 @@
+/* ==========================================================================
+   VARIABLES GLOBALES Y TEMA BASE
+   ========================================================================== */
+:root {
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-color: #0f172a;
+  --border-color: #e2e8f0;
+  --font-size-base: 100%;
+}
+
+/* Variables para Modo Oscuro */
+body.dark-mode {
+  --bg-color: #121826;
+  --card-bg: #1e293b;
+  --text-color: #f8fafc;
+  --border-color: #334155;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Aplicación global de variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================================
+   ADAPTACIÓN MODO OSCURO (COMPONENTES Y FORMULARIOS)
+   ========================================================================== */
+/* Modales, Tarjetas y Paneles */
+body.dark-mode .card,
+body.dark-mode .modal-content,
+body.dark-mode .modal-config-content,
+body.dark-mode .modal-card,
+body.dark-mode .modal-contenido,
+body.dark-mode .medico-card,
+body.dark-mode .panel-notificaciones,
+body.dark-mode form {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Encabezados y textos generales */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode label, 
+body.dark-mode strong,
+body.dark-mode p,
+body.dark-mode span {
+  color: var(--text-color) !important;
+}
+
+/* Inputs, Selects y Buscador */
+body.dark-mode select,
+body.dark-mode input,
+body.dark-mode .search-input {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid #475569 !important;
+}
+
+/* Menú dropdown del Navbar */
+body.dark-mode .header-menu-content {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .header-menu-item {
+  color: #e2e8f0 !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+/* Botones de acción dentro del modal en modo oscuro */
+body.dark-mode .btn-config-action {
+  background: #0f172a;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+/* ==========================================================================
+   BOTÓN DE AJUSTES (NAVBAR Y BOTÓN FLOTANTE DE RESPALDO)
+   ========================================================================== */
+/* Botón integrado en la barra de navegación */
+.btn-config-nav {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-left: 10px;
+}
+
+.btn-config-nav:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.03);
+}
+
+/* Botón flotante alternativo */
+.btn-config-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #0d47a1;
+  color: white;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   MODAL DE CONFIGURACIÓN ESTILIZADO
+   ========================================================================== */
+.modal-config {
+  display: none;
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-config.active {
+  display: flex;
+}
+
+.modal-config-content {
+  background: var(--card-bg);
+  color: var(--text-color);
+  padding: 24px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+}
+
+.modal-config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.modal-config-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.config-group {
+  margin-bottom: 20px;
+}
+
+.config-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.btn-config-action {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.select-config {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+  outline: none;
+}
+
+.btn-config-cerrar {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #0d47a1;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
